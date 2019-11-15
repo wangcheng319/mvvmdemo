@@ -2,10 +2,7 @@ package com.coolweather.coolweatherjetpack.ui.login
 
 import android.annotation.SuppressLint
 import android.util.Log
-import com.coolweather.coolweatherjetpack.data.network.BaseObserver
-import com.coolweather.coolweatherjetpack.data.network.BaseRequestListener
-import com.coolweather.coolweatherjetpack.data.network.BaseResponse
-import com.coolweather.coolweatherjetpack.data.network.ServiceCreator
+import com.coolweather.coolweatherjetpack.data.network.*
 import com.coolweather.coolweatherjetpack.data.network.api.AccountService
 import io.reactivex.Observable
 import io.reactivex.Observer
@@ -31,8 +28,7 @@ class LoginRepository {
     fun login(username: String, password: String, onResult: BaseRequestListener<String>){
         ServiceCreator.create(AccountService::class.java)
             .login(username,password)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+            .compose(NetScheduler.compose())
             .subscribe(object : BaseObserver<BaseResponse<String>>() {
                 override fun onSuccess(response: BaseResponse<String>?) {
                     Log.e("+++","=====>${response?.errorCode}${response?.errorCode}${response?.errorMsg}")
