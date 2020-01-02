@@ -6,7 +6,7 @@ import android.content.Context
 import org.litepal.LitePal
 
 class CoolWeatherApplication : Application() {
-
+    var str = "sourcetree"
 
 
     override fun onCreate() {

@@ -4,6 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/mvvmdemo.iml" filepath="$PROJECT_DIR$/mvvmdemo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sourcetree.iml" filepath="$PROJECT_DIR$/sourcetree.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/sourcetree-app.iml" filepath="$PROJECT_DIR$/app/sourcetree-app.iml" />
     </modules>
   </component>
 </project>
