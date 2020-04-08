@@ -1,28 +1,16 @@
 package com.coolweather.coolweatherjetpack.ui.login
 
-import android.app.Notification
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
 import android.content.Context
-import android.content.Intent
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
-import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.FrameLayout
-import androidx.appcompat.app.AlertDialog
-import androidx.core.app.NotificationCompat
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.coolweather.coolweatherjetpack.BuildConfig
 import com.coolweather.coolweatherjetpack.R
 import com.coolweather.coolweatherjetpack.databinding.ActivityLoginBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -63,17 +51,17 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun testConfig() {
-            if (BuildConfig.BUILD_TYPE.equals("debug")){
-                Log.e("+++","BUILD_TYPE_debug:"+BuildConfig.BUILD_TYPE)
-            }
-
-            if (BuildConfig.BUILD_TYPE.equals("release")){
-                Log.e("+++","BUILD_TYPE_release:"+BuildConfig.BUILD_TYPE)
-            }
-
-            if (BuildConfig.BUILD_TYPE.equals("pre")){
-                Log.e("+++","BUILD_TYPE_pre:"+BuildConfig.BUILD_TYPE)
-            }
+//            if (BuildConfig.BUILD_TYPE.equals("debug")){
+//                Log.e("+++","BUILD_TYPE_debug:"+BuildConfig.BUILD_TYPE)
+//            }
+//
+//            if (BuildConfig.BUILD_TYPE.equals("release")){
+//                Log.e("+++","BUILD_TYPE_release:"+BuildConfig.BUILD_TYPE)
+//            }
+//
+//            if (BuildConfig.BUILD_TYPE.equals("pre")){
+//                Log.e("+++","BUILD_TYPE_pre:"+BuildConfig.BUILD_TYPE)
+//            }
         }
 
 
