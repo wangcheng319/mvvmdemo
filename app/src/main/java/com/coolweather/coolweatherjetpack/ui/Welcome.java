@@ -29,6 +29,9 @@ public class Welcome extends Activity {
         if (null == intent)
             return;
 
+        for (int a = 10;a<10;a++){
+
+        }
         Uri uri = intent.getData();
         if (null == uri)
             return;
