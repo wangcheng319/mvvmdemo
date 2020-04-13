@@ -5,15 +5,15 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
-import android.view.ViewGroup
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.coolweather.coolweatherjetpack.R
 import com.coolweather.coolweatherjetpack.databinding.ActivityLoginBinding
-import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.coolweather.coolweatherjetpack.util.LogUtil
+import com.coolweather.coolweatherjetpack.util.switchError
+import com.coolweather.coolweatherjetpack.util.switchSuccess
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
@@ -31,23 +31,31 @@ class LoginActivity : AppCompatActivity() {
         loginViewModel = ViewModelProviders.of(this,LoginViewModelFactory(LoginRepository.getInstance())).get(LoginViewModel::class.java)
         binding.viewModel = loginViewModel
 
-        var root:ViewGroup = window.decorView as ViewGroup
-        var btn = Button(this)
         button.setOnClickListener {
-
-            loginViewModel.login(editText.text.toString().trim(),editText2.text.toString().trim())
+            login()
         }
 
         observeData()
+    }
 
-        button2.setOnClickListener {
-            var bottomSheetDialog = BottomSheetDialog(this)
-            bottomSheetDialog.setContentView(R.layout.layout_dialog)
-            bottomSheetDialog.show()
-        }
-
-//        button3.setOnClickListener { root.removeView(btn) }
-        button3.setOnClickListener { testConfig() }
+    private fun login() {
+//        showLoadingDialog()
+        loginViewModel.login(editText.text.toString().trim(),editText2.text.toString().trim())
+            .observe(this, Observer {
+            it.switchSuccess { rsp ->
+//                hideLoadingDialog()
+                rsp?.let {
+                    if (rsp == null) {
+                        Log.e("+++","登录失败")
+                    } else {
+                        Log.e("+++", "登录成功$rsp")
+                    }
+                }
+            }
+            it.switchError {
+//                hideLoadingDialog()
+            }
+        })
     }
 
     private fun testConfig() {

@@ -1,5 +1,6 @@
 package com.coolweather.coolweatherjetpack.data.network.api
 
+import com.coolweather.coolweatherjetpack.data.model.account.LoginRsp
 import com.coolweather.coolweatherjetpack.data.network.BaseResponse
 import io.reactivex.Observable
 import io.reactivex.Observer
@@ -22,6 +23,6 @@ interface AccountService {
 
     @POST("user/login")
     @FormUrlEncoded
-    fun login(@Field("username")username:String, @Field("password")password:String) : Observable<BaseResponse<String>>
+    fun login(@Field("username")username:String, @Field("password")password:String) : Observable<BaseResponse<LoginRsp>>
 
 }

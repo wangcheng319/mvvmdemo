@@ -47,11 +47,11 @@
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning,UnusedAttribute">
         <activity android:name=".ui.ViewPager2DemoActivity"></activity>
-        <activity android:name=".ui.login.WebViewActivity" />
+        <activity android:name=".ui.WebViewActivity" />
         <activity
                 android:name=".ui.weather.WeatherActivity"
                 android:label="@string/title_activity_login" />
-        <activity android:name=".ui.RecyclerViewActivity">
+        <activity android:name=".ui.login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

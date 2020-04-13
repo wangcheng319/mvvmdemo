@@ -1,20 +1,22 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
-
 apply plugin: 'kotlin-kapt'
 
+def app = rootProject.ext.android
+def config = rootProject.ext.app
+def dep = rootProject.ext.dep
+
 android {
-    compileSdkVersion 28
+    compileSdkVersion app.compileSdkVersion
     defaultConfig {
-        applicationId "com.coolweather.coolweatherjetpack"
-        minSdkVersion 21
-        targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        applicationId config.applicationId
+        minSdkVersion app.minSdkVersion
+        targetSdkVersion app.targetSdkVersion
+        versionCode config.versionCode
+        versionName config.versionName
+
+        multiDexEnabled true
     }
 
     signingConfigs {
@@ -47,7 +49,7 @@ android {
             applicationIdSuffix ".dev"
 
             //开发服务器地址
-            buildConfigField "String", "BASE_URL", '"https://dev.example.com/api"'
+            buildConfigField "String", "BASE_URL", '"https://dev.example.com/implementation"'
             //开发环境 极光推送的AppKey
             buildConfigField "String", "JPUSH_APP_KEY", '"xxxxxx"'
         }
@@ -55,7 +57,7 @@ android {
         release {
             applicationIdSuffix ".prod"
             //生产服务器地址
-            buildConfigField "String", "BASE_URL", '"https://prod.example.com/api"'
+            buildConfigField "String", "BASE_URL", '"https://prod.example.com/implementation"'
             //生产环境 极光推送的AppKey
             buildConfigField "String", "JPUSH_APP_KEY", '"xxxxxx"'
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
@@ -68,10 +70,11 @@ android {
         pre.initWith(release)
         pre {
             applicationIdSuffix ".pre"
-            buildConfigField "String", "BASE_URL", '"https://pre.example.com/api"'
+            buildConfigField "String", "BASE_URL", '"https://pre.example.com/implementation"'
             matchingFallbacks = ['pre', 'debug', 'release']
         }
     }
+
     dataBinding {
         enabled true
     }
@@ -79,7 +82,6 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.1'
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0-alpha03"
@@ -87,32 +89,60 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha3'
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'androidx.annotation:annotation:1.1.0'
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
-    implementation 'org.litepal.android:kotlin:3.0.0'
     implementation 'com.squareup.retrofit2:converter-scalars:2.5.0'
-    implementation 'com.github.bumptech.glide:glide:3.7.0'
-    def lifecycle_version = "2.0.0"
-    // ViewModel and LiveData
-    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+
+    implementation 'org.litepal.android:kotlin:3.0.0'
 
 
-    //retrofit2
-    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
-    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.5.0'
 
-// 用Gson解析json的转换器
-    implementation 'com.google.code.gson:gson:2.8.5'
+    //kotlin 相关
+    implementation dep.kotlin
 
-//rxjava2
-    implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.5'
+    //anko
+    implementation dep.anko_commons
+    implementation dep.anko_layout
+    implementation dep.anko_layout_appcompat
+    implementation dep.anko_layout_coroutine
+    implementation dep.anko_layout_app_coroutine
 
-    implementation "androidx.viewpager2:viewpager2:1.0.0"
+    //rx
+    implementation dep.rxjava
+    implementation dep.rxandroid
+
+    implementation dep.rxbinding_core
+    implementation dep.rxbinding_appcompat
+
+    //event bus
+    implementation dep.event_bus
+
+    //viewmodel and lifecycle
+    implementation dep.livedata
+    implementation dep.viewmodel
+    implementation dep.lifecycle_extensions
+    implementation dep.fragment_ktx
+    implementation dep.rxLifecycle
+    implementation dep.rxLifecycle_components
+
+    //retrofit
+    implementation dep.retrofit
+    implementation dep.retrofit_json
+    implementation dep.retrofit_rxjava
+    implementation dep.okhttp_intercepte
+
+    //viewpager2
+    implementation dep.viewpager2
+
+    //glide
+    implementation dep.glide
+
+    //logger
+    implementation dep.orhanobut_logger
+
+
 
 
 }

@@ -11,8 +11,8 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 
 import com.coolweather.coolweatherjetpack.R;
-import com.coolweather.coolweatherjetpack.ui.login.WebViewActivity;
-/** 
+
+/**
  * author: wangc
  * date: 2020/1/13 10:51 
 */

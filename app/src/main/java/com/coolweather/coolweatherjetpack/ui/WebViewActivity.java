@@ -1,39 +1,23 @@
-package com.coolweather.coolweatherjetpack.ui.login;
+package com.coolweather.coolweatherjetpack.ui;
 
-import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
-import android.app.Notification;
-import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Intent;
 import android.net.http.SslError;
 import android.os.Build;
-import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.webkit.PermissionRequest;
 import android.webkit.SslErrorHandler;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
-import android.webkit.WebResourceError;
-import android.webkit.WebResourceRequest;
-import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import androidx.core.app.NotificationCompat;
+
 import com.coolweather.coolweatherjetpack.R;
-
-import java.util.logging.Logger;
-
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
 
 public class WebViewActivity extends AppCompatActivity {
     NotificationManager manager;

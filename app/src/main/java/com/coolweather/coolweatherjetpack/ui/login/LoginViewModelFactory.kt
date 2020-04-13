@@ -15,7 +15,5 @@ import androidx.lifecycle.ViewModelProvider
  */
 class LoginViewModelFactory(private val repository: LoginRepository) : ViewModelProvider.NewInstanceFactory() {
 
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return LoginViewModel(repository) as T
-    }
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T = LoginViewModel(repository) as T
 }

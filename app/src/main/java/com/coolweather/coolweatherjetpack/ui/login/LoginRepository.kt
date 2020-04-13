@@ -1,17 +1,14 @@
 package com.coolweather.coolweatherjetpack.ui.login
 
-import android.annotation.SuppressLint
-import android.util.Log
-import com.coolweather.coolweatherjetpack.data.network.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import com.coolweather.coolweatherjetpack.data.Resource
+import com.coolweather.coolweatherjetpack.data.model.account.LoginRsp
+import com.coolweather.coolweatherjetpack.data.network.BaseObserver
+import com.coolweather.coolweatherjetpack.data.network.BaseResponse
+import com.coolweather.coolweatherjetpack.data.network.NetScheduler
+import com.coolweather.coolweatherjetpack.data.network.ServiceCreator
 import com.coolweather.coolweatherjetpack.data.network.api.AccountService
-import io.reactivex.Observable
-import io.reactivex.Observer
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 /**
  *
@@ -25,22 +22,27 @@ import retrofit2.Response
  */
 class LoginRepository {
 
-    fun login(username: String, password: String, onResult: BaseRequestListener<String>){
+    fun login(username: String, password: String) : LiveData<Resource<LoginRsp>> {
+
+        val result = MutableLiveData<Resource<LoginRsp>>()
+        result.value = Resource.loading(null)
+
         ServiceCreator.create(AccountService::class.java)
             .login(username,password)
             .compose(NetScheduler.compose())
-            .subscribe(object : BaseObserver<BaseResponse<String>>() {
-                override fun onSuccess(response: BaseResponse<String>?) {
-                    Log.e("+++","=====>${response?.errorCode}${response?.errorCode}${response?.errorMsg}")
-                    onResult.onSuccess(response?.data)
+            .subscribe(object : BaseObserver<BaseResponse<LoginRsp>>() {
+                override fun onSuccess(response: BaseResponse<LoginRsp>) {
+//                    Log.e("+++","=====>${response.errorCode}${response.errorCode}${response.errorMsg}")
+                    result.value = Resource.success(response.data)
                 }
 
-                override fun onFailing(response: BaseResponse<String>?) {
-                    super.onFailing(response)
-                    onResult.onFail(response?.errorMsg)
+                override fun onFailing(errorMsg: String) {
+                    super.onFailing(errorMsg)
+                    result.value = Resource.error(errorMsg, null)
                 }
 
             })
+        return result
     }
 
     companion object {

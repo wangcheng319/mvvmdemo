@@ -3,17 +3,15 @@ package com.coolweather.coolweatherjetpack
 import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
-import org.litepal.LitePal
+import com.coolweather.coolweatherjetpack.util.LogUtil
 
 class CoolWeatherApplication : Application() {
-    var str = "发布1.0.0"
-
 
     override fun onCreate() {
         super.onCreate()
-        LitePal.initialize(this)
         context = this
         sApp = this
+        LogUtil.init()
     }
 
 

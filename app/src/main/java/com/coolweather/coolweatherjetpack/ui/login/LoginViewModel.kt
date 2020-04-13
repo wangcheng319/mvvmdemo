@@ -1,8 +1,11 @@
 package com.coolweather.coolweatherjetpack.ui.login
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.coolweather.coolweatherjetpack.data.Resource
+import com.coolweather.coolweatherjetpack.data.model.account.LoginRsp
 import com.coolweather.coolweatherjetpack.data.network.BaseRequestListener
 
 /**
@@ -19,20 +22,9 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
 
     var result = MutableLiveData<String>()
 
-    fun login(username: String, password: String) {
-        loginRepository.login(username,password,object : BaseRequestListener<String>() {
+    fun login(username: String, password: String): LiveData<Resource<LoginRsp>> {
 
-            override fun onSuccess(response: String?) {
-                Log.e("+++","结果：$response")
-                result.value = response
-            }
-
-            override fun onFail( message: String?) {
-                super.onFail(message)
-                result.value = null
-            }
-
-        })
+        return loginRepository.login(username,password)
     }
 
 }

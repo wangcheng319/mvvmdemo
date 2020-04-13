@@ -27,7 +27,7 @@ class PlaceDao {
 
     fun saveCountyList(countyList: List<County>?) {
         if (countyList != null && countyList.isNotEmpty()) {
-            LitePal.saveAll(countyList)
+//            LitePal.saveAll(countyList)
         }
     }
 

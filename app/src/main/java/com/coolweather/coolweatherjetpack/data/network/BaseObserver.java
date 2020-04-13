@@ -37,9 +37,9 @@ public abstract class BaseObserver<T extends BaseResponse> implements Observer<T
 
     @Override
     public void onNext(T response) {
-        Log.e("+++","onNext"+response);
+//        Log.e("+++","onNext"+response);
         if (response.getErrorCode() == -1){
-            onFailing(response);
+            onFailing(response.getErrorMsg());
         }else{
             onSuccess(response);
         }
@@ -108,12 +108,11 @@ public abstract class BaseObserver<T extends BaseResponse> implements Observer<T
      *
      * @param response 返回值
      */
-    public void onFailing(T response) {
-        String message = response.getErrorMsg();
-        if (TextUtils.isEmpty(message)) {
+    public void onFailing(String response) {
+        if (TextUtils.isEmpty(response)) {
             ToastUtils.show(RESPONSE_RETURN_ERROR);
         } else {
-            ToastUtils.show(message);
+            ToastUtils.show(response);
         }
     }
 
