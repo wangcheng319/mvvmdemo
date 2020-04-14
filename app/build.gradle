@@ -50,16 +50,14 @@ android {
 
             //开发服务器地址
             buildConfigField "String", "BASE_URL", '"https://dev.example.com/implementation"'
-            //开发环境 极光推送的AppKey
-            buildConfigField "String", "JPUSH_APP_KEY", '"xxxxxx"'
+            buildConfigField "String", "APP_KEY", '"xxxxxx"'
         }
 
         release {
             applicationIdSuffix ".prod"
             //生产服务器地址
             buildConfigField "String", "BASE_URL", '"https://prod.example.com/implementation"'
-            //生产环境 极光推送的AppKey
-            buildConfigField "String", "JPUSH_APP_KEY", '"xxxxxx"'
+            buildConfigField "String", "APP_KEY", '"xxxxxx"'
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
             signingConfig signingConfigs.release
         }
@@ -141,6 +139,9 @@ dependencies {
 
     //logger
     implementation dep.orhanobut_logger
+
+    //autosize
+    implementation dep.autosize
 
 
 
