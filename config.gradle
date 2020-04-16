@@ -39,7 +39,11 @@ ext {
             glide_version              : "3.7.0",
             viewpager2_version         : "1.0.0",
             logger_version             : "2.2.0",
-            autosize_version           : "1.2.1"
+            autosize_version           : "1.2.1",
+            progressmanager_version    : "1.5.0",
+            luban_version              : "1.1.8",
+            rxpermissions_version      : "0.10.2",
+            qmui_version               : "2.0.0-alpha07",
     ]
 
     dep = [
@@ -81,7 +85,11 @@ ext {
             glide                    : "com.github.bumptech.glide:glide:$dep_version.glide_version",
             viewpager2               : "androidx.viewpager2:viewpager2:$dep_version.viewpager2_version",
             orhanobut_logger         : "com.orhanobut:logger:$dep_version.logger_version",
-            autosize                 : "me.jessyan:autosize:$dep_version.autosize_version"
+            autosize                 : "me.jessyan:autosize:$dep_version.autosize_version",
+            progressmanager          : "me.jessyan:progressmanager:$dep_version.progressmanager_version",
+            Luban                    : "me.jessyan:progressmanager:$dep_version.luban_version",
+            rxpermissions            : "com.github.tbruyelle:rxpermissions:$dep_version.rxpermissions_version",
+            qmui                     : "com.qmuiteam:qmui:$dep_version.qmui_version",
 
     ]
 

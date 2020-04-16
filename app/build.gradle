@@ -96,7 +96,6 @@ dependencies {
     implementation 'org.litepal.android:kotlin:3.0.0'
 
 
-
     //kotlin 相关
     implementation dep.kotlin
 
@@ -142,8 +141,8 @@ dependencies {
 
     //autosize
     implementation dep.autosize
-
-
-
+    implementation dep.progressmanager
+    //qmui
+    implementation dep.qmui
 
 }
