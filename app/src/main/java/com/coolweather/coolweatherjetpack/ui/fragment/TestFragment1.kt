@@ -8,12 +8,14 @@ import android.telephony.TelephonyManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SeekBar
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.coolweather.coolweatherjetpack.R
 import com.coolweather.coolweatherjetpack.util.LogUtil
 import com.coolweather.coolweatherjetpack.util.UniqueIDUtils
 import com.coolweather.coolweatherjetpack.util.Utils
+import io.flutter.app.FlutterActivity
 import kotlinx.android.synthetic.main.fragment_test1.*
 import org.jetbrains.anko.support.v4.toast
 
@@ -48,6 +50,13 @@ class TestFragment1 : Fragment() {
         button5.setOnClickListener { getSerialNumber() }
         button6.setOnClickListener { getMac() }
         button7.setOnClickListener { getPhoneNum() }
+        button8.setOnClickListener { toFlutter() }
+
+    }
+
+    private fun toFlutter() {
+        startActivity(io.flutter.embedding.android.FlutterActivity.createDefaultIntent(requireActivity()))
+
     }
 
     private fun getPhoneNum() {

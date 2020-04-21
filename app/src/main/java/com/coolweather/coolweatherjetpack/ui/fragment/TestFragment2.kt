@@ -1,11 +1,16 @@
 package com.coolweather.coolweatherjetpack.ui.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.coolweather.coolweatherjetpack.R
+import io.reactivex.Observable
+import io.reactivex.Observer
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -37,6 +42,29 @@ class TestFragment2 : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_test2, container, false)
+    }
+
+    fun test(){
+        Observable.create<Any> { emitter -> emitter.onNext("") }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { getResult()}
+
+        Observable.create<Any> { emitter -> emitter.onNext("") }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : Observer<Any?> {
+                override fun onSubscribe(d: Disposable) {}
+                override fun onError(e: Throwable) {}
+                override fun onComplete() {}
+                override fun onNext(t: Any) {
+                    getResult()
+                }
+            })
+    }
+
+    private fun getResult() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     companion object {

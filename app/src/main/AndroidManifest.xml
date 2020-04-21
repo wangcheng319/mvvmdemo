@@ -56,6 +56,8 @@
                 android:name="design_height_in_dp"
                 android:value="640" />
 
+
+
         <activity android:name=".ui.ViewPager2DemoActivity" />
         <activity android:name=".ui.WebViewActivity" />
         <activity
@@ -81,6 +83,23 @@
                         android:host="www.qw.com"
                         android:scheme="http" />
             </intent-filter>
+        </activity>
+
+        <activity
+            android:name="io.flutter.embedding.android.FlutterActivity"
+            android:theme="@style/AppTheme"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+            android:hardwareAccelerated="true"
+            android:windowSoftInputMode="adjustResize">
+            <meta-data
+                android:name="io.flutter.app.android.SplashScreenUntilFirstFrame"
+                android:value="true"/>
+
+            <!--flutter黑屏问题，正式打包不会出现-->
+            <meta-data
+                android:name="io.flutter.embedding.android.SplashScreenDrawable"
+                android:resource="@drawable/ic_home"
+                />
         </activity>
     </application>
 

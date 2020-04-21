@@ -4,37 +4,54 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Application
 import android.content.Context
-import android.os.Build
 import android.os.Bundle
 import android.widget.Button
-import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
+import androidx.appcompat.app.AppCompatDelegate
 import com.coolweather.coolweatherjetpack.util.LogUtil
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper
-import com.qmuiteam.qmui.widget.QMUITopBar
 import com.qmuiteam.qmui.widget.QMUITopBarLayout
-import kotlinx.android.synthetic.main.activity_fragment_container.*
+import io.flutter.app.FlutterActivity
+import io.flutter.app.FlutterApplication
+import java.util.*
+
 
 class CoolWeatherApplication : Application() {
+
+    private var mActivityLinkedList: LinkedList<Activity>? = null
 
     override fun onCreate() {
         super.onCreate()
         context = this
         sApp = this
+        mActivityLinkedList = LinkedList()
         LogUtil.init()
         setActivityTitle()
+
+        setNightMode()
+
+    }
+
+    private fun setNightMode() {
+        /**
+         *  暗黑模式，跟随系统变化，另外资源文件需要设置两套，Activity 必须是 AppCompatActivity 实例
+         * 在 drawable-xxhdpi 和 drawable-night-xxhdpi 目录下放置Light和Dark相同名字的图片，系统根据Light/Dark加载图片。
+         */
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
     }
 
     private fun setActivityTitle() {
-        registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks{
+        sApp.registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks{
+
+            override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
+                mActivityLinkedList?.add(activity)
+                QMUIStatusBarHelper.translucent(activity)
+            }
+
+
             override fun onActivityPaused(activity: Activity) {
             }
 
             override fun onActivityStarted(activity: Activity) {
-            }
-
-            override fun onActivityDestroyed(activity: Activity) {
             }
 
             override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {
@@ -43,12 +60,16 @@ class CoolWeatherApplication : Application() {
             override fun onActivityStopped(activity: Activity) {
             }
 
-            override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
-                QMUIStatusBarHelper.translucent(activity)
+            override fun onActivityResumed(activity: Activity) {
+
             }
 
-            override fun onActivityResumed(activity: Activity) {
+            override fun onActivityDestroyed(activity: Activity) {
+                if (null!=mActivityLinkedList && mActivityLinkedList?.contains(activity)!!) {
+                    mActivityLinkedList?.remove(activity);
+                }
             }
+
 
         })
     }

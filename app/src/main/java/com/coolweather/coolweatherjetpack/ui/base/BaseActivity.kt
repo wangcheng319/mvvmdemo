@@ -3,11 +3,13 @@ package com.coolweather.coolweatherjetpack.ui.base
 import android.app.ProgressDialog
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.qmuiteam.qmui.util.QMUIStatusBarHelper
 
 open class BaseActivity:AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        QMUIStatusBarHelper.translucent(this)
     }
 
 
@@ -19,29 +21,16 @@ open class BaseActivity:AppCompatActivity() {
         super.onPause()
     }
 
-    override fun onResume() {
-        super.onResume()
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-    }
-
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
-    }
-
 
     override fun onDestroy() {
         if (mLoadingDialog != null) {
             mLoadingDialog!!.dismiss()
-//            mLoadingDialog!!.isFinish()
             mLoadingDialog = null
         }
         super.onDestroy()
     }
 
-    protected var mLoadingDialog: ProgressDialog? = null
+    private var mLoadingDialog: ProgressDialog? = null
 
     fun showLoadingDialog() {
         if (isDestroy()) {

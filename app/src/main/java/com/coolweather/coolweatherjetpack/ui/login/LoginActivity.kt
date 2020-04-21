@@ -2,6 +2,7 @@ package com.coolweather.coolweatherjetpack.ui.login
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
@@ -82,5 +83,17 @@ class LoginActivity : AppCompatActivity() {
                 progress_circular.visibility = View.GONE
             }
         })
+    }
+
+    companion object{
+
+        fun startActivity(phone:String,password:String,context:Activity){
+            var intent = Intent()
+            intent.setClass(context,LoginActivity::class.java)
+            intent.putExtra("phone",phone)
+            intent.putExtra("password",password)
+            context.startActivity(intent)
+        }
+
     }
 }
