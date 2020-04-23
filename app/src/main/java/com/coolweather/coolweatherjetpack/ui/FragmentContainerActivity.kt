@@ -1,35 +1,36 @@
 package com.coolweather.coolweatherjetpack.ui
 
-import android.os.Bundle
 import android.view.KeyEvent
 import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import com.coolweather.coolweatherjetpack.R
+import com.coolweather.coolweatherjetpack.ui.base.BaseActivity
+import com.coolweather.coolweatherjetpack.ui.fragment.CameraXFragment
 import com.coolweather.coolweatherjetpack.ui.fragment.TestFragment1
 import com.coolweather.coolweatherjetpack.util.LogUtil
-import com.qmuiteam.qmui.util.QMUIStatusBarHelper
 import kotlinx.android.synthetic.main.activity_fragment_container.*
 import kotlin.system.exitProcess
 
 
-class FragmentContainerActivity : AppCompatActivity() {
+class FragmentContainerActivity : BaseActivity() {
 
     private var exitTime: Long = 0
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override val contentViewId: Int
+        get() = R.layout.activity_fragment_container
 
-        setContentView(R.layout.activity_fragment_container)
-
+    override fun initView() {
         initTopBar()
 
+    }
+
+    override fun initData() {
         supportFragmentManager
             .beginTransaction()
-            .add(R.id.root, TestFragment1.newInstance("",""))
+            .add(R.id.root, CameraXFragment.newInstance("",""))
             .commitNow()
     }
+
 
     private fun initTopBar() {
         topbar.addLeftBackImageButton().setOnClickListener { finish() }

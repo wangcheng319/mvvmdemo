@@ -1,21 +1,20 @@
 package com.coolweather.coolweatherjetpack.ui.fragment
 
 import android.Manifest
+import android.app.ProgressDialog
 import android.content.Context.TELEPHONY_SERVICE
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.telephony.TelephonyManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.SeekBar
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.coolweather.coolweatherjetpack.R
 import com.coolweather.coolweatherjetpack.util.LogUtil
 import com.coolweather.coolweatherjetpack.util.UniqueIDUtils
-import com.coolweather.coolweatherjetpack.util.Utils
-import io.flutter.app.FlutterActivity
 import kotlinx.android.synthetic.main.fragment_test1.*
 import org.jetbrains.anko.support.v4.toast
 
@@ -101,7 +100,21 @@ class TestFragment1 : Fragment() {
     }
 
     private fun getAndroidId() {
-        LogUtil.i("getAndroidId")
+        var progressDialog = ProgressDialog(requireActivity())
+        progressDialog.show()
+//        Thread.sleep(5*1000)
+//        progressDialog.dismiss()
+        /** 倒计时60秒，一次1秒 */
+        /** 倒计时60秒，一次1秒  */
+        object : CountDownTimer(10 * 1000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+
+            }
+
+            override fun onFinish() {
+                progressDialog.dismiss()
+            }
+        }.start()
     }
 
     override fun onRequestPermissionsResult(

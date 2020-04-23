@@ -61,8 +61,7 @@
         <activity android:name=".ui.ViewPager2DemoActivity" />
         <activity android:name=".ui.WebViewActivity" />
         <activity
-                android:name=".ui.weather.WeatherActivity"
-                android:label="@string/title_activity_login" />
+                android:name=".ui.weather.WeatherActivity" />
         <activity android:name=".ui.FragmentContainerActivity"
                 android:label="容器activity">
             <intent-filter>

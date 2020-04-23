@@ -7,13 +7,21 @@ def app = rootProject.ext.android
 def config = rootProject.ext.app
 def dep = rootProject.ext.dep
 
+def currentVersionCode = getVersionCode()
+
+def releaseTime() {
+    return new Date().format("yyyyMMddHHmm", TimeZone.getTimeZone("UTC"))
+}
+
+
 android {
     compileSdkVersion app.compileSdkVersion
+    buildToolsVersion = app.compileSdkVersion
     defaultConfig {
         applicationId config.applicationId
         minSdkVersion app.minSdkVersion
         targetSdkVersion app.targetSdkVersion
-        versionCode config.versionCode
+        versionCode currentVersionCode
         versionName config.versionName
 
         multiDexEnabled true
@@ -22,6 +30,7 @@ android {
             // Filter for architectures supported by Flutter.
             abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86_64'
         }
+        signingConfig signingConfigs.debug
     }
 
     signingConfigs {
@@ -48,28 +57,20 @@ android {
 
     buildTypes {
         debug {
-            // applicationId添加后缀
-            //比如defaultConfig中设置的applicationId为com.example.myapp
-            //编译debug版本时applicationId将是com.example.myapp.dev
             applicationIdSuffix ".dev"
-
-            //开发服务器地址
             buildConfigField "String", "BASE_URL", '"https://dev.example.com/implementation"'
             buildConfigField "String", "APP_KEY", '"xxxxxx"'
         }
 
         release {
             applicationIdSuffix ".prod"
-            //生产服务器地址
             buildConfigField "String", "BASE_URL", '"https://prod.example.com/implementation"'
             buildConfigField "String", "APP_KEY", '"xxxxxx"'
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
             signingConfig signingConfigs.release
+
         }
 
-
-        //预生产版本
-        /* 从给定的构建类型复制所有属性 */
         pre.initWith(release)
         pre {
             applicationIdSuffix ".pre"
@@ -85,7 +86,31 @@ android {
         sourceCompatibility = 1.8
         targetCompatibility = 1.8
     }
+
+    android.applicationVariants.all {
+        variant ->
+            variant.outputs.all {
+                //在这里修改apk文件名，引号内的字符串都可以随便定义
+                outputFileName = "${variant.name}-v${variant.versionName}-${variant.versionCode}-${releaseTime()}.apk"
+            }
+    }
 }
+
+// 获取版本号
+def getVersionCode() {
+    def versionFile = file('version.properties')// 读取第一步新建的文件
+    if (versionFile.canRead()) {// 判断文件读取异常
+        Properties versionProps = new Properties()
+        versionProps.load(new FileInputStream(versionFile))
+        def versionCode = versionProps['VERSION_CODE'].toInteger()// 读取文件里面的版本号
+        def runTasks = gradle.startParameter.taskNames
+        // 版本号自增之后再写入文件（此处是关键，版本号自增+1）
+        versionProps['VERSION_CODE'] = (++versionCode).toString()
+        versionProps.store(versionFile.newWriter(), null)
+        return versionCode // 返回自增之后的版本号
+    }
+}
+
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -154,5 +179,10 @@ dependencies {
     //qmui
     implementation dep.qmui
     implementation project(':flutter')
+
+    //camerax
+    def camerax_version = '1.0.0-alpha06'
+    implementation "androidx.camera:camera-core:${camerax_version}"
+    implementation "androidx.camera:camera-camera2:${camerax_version}"
 
 }

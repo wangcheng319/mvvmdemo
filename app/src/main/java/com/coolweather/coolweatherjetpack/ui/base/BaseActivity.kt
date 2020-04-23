@@ -5,12 +5,21 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper
 
-open class BaseActivity:AppCompatActivity() {
+abstract class BaseActivity:AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(contentViewId)
         QMUIStatusBarHelper.translucent(this)
+        initView()
+        initData()
     }
+
+    protected abstract val contentViewId: Int
+
+    protected abstract fun initView()
+
+    protected abstract fun initData()
 
 
     override fun onPause() {
@@ -46,37 +55,10 @@ open class BaseActivity:AppCompatActivity() {
         }
     }
 
-    protected fun isDestroy(): Boolean {
+    private fun isDestroy(): Boolean {
         return this.isFinishing || this.isDestroyed
     }
 
-    fun showLoadingDialog(text: String) {
-        if (isDestroy()) {
-            return
-        }
-        runOnUiThread {
-            if (mLoadingDialog == null) {
-                mLoadingDialog = ProgressDialog(this@BaseActivity)
-            }
-
-            mLoadingDialog!!.setMessage(text)
-            mLoadingDialog!!.show()
-        }
-    }
-
-    protected fun showLoadingDialog(imgRes: Int, text: String, load: String) {
-        if (isDestroy()) {
-            return
-        }
-        runOnUiThread {
-            if (mLoadingDialog == null) {
-                mLoadingDialog = ProgressDialog(this@BaseActivity)
-            }
-
-//            mLoadingDialog!!.setMessage(imgRes, text, load)
-            mLoadingDialog!!.show()
-        }
-    }
 
     fun hideLoadingDialog() {
         if (isDestroy()) {

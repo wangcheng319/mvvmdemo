@@ -14,7 +14,7 @@ import com.coolweather.coolweatherjetpack.ui.fragment.TestFragment3
 
 class ViewPager2DemoActivity : AppCompatActivity() {
 
-    private var mPager: ViewPager2? = null
+    private lateinit var mPager: ViewPager2
 
     private var fragment1:TestFragment1? = null
     private var fragment2:TestFragment2? = null
@@ -39,8 +39,10 @@ class ViewPager2DemoActivity : AppCompatActivity() {
 
         mPager = findViewById(R.id.pager)
         pagerAdapter = ScreenSlidePagerAdapter(this,fragments)
-        mPager?.orientation = ViewPager2.ORIENTATION_VERTICAL
-        mPager?.adapter = pagerAdapter
+        mPager.orientation = ViewPager2.ORIENTATION_VERTICAL
+        mPager.adapter = pagerAdapter
+        mPager.offscreenPageLimit = 1
+        mPager.isUserInputEnabled = false
     }
 
     override fun onBackPressed() {

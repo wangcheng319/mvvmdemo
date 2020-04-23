@@ -47,6 +47,17 @@ class WeatherActivity : BaseActivity() {
         viewModel.getWeather()
     }
 
+    override val contentViewId: Int
+        get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
+
+    override fun initView() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun initData() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     private fun observeData() {
         viewModel.isLoading.observe(this, Observer { isLoading->
             if (isLoading){

@@ -19,5 +19,18 @@
             android:layout_marginTop="?attr/qmui_topbar_height"
             android:fitsSystemWindows="true" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="《数字证书使用协议》"
+            />
+
+    </LinearLayout>
 
 </com.qmuiteam.qmui.widget.QMUIWindowInsetLayout2>
