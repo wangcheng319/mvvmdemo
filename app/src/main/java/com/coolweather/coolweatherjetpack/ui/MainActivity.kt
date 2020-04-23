@@ -1,21 +1,15 @@
 package com.coolweather.coolweatherjetpack.ui
 
-import android.content.Intent
 import android.os.Bundle
-import android.os.HandlerThread
 import android.view.KeyEvent
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProviders
-import com.coolweather.coolweatherjetpack.CoolWeatherApplication
+import com.alibaba.android.arouter.facade.annotation.Route
 import com.coolweather.coolweatherjetpack.R
-import com.coolweather.coolweatherjetpack.ui.area.ChooseAreaFragment
 import com.coolweather.coolweatherjetpack.ui.login.LoginActivity
-import com.coolweather.coolweatherjetpack.ui.weather.WeatherActivity
-import com.coolweather.coolweatherjetpack.util.InjectorUtil
 import kotlin.system.exitProcess
 
-
+@Route(path = "/test/activity", group = "test" )
 class MainActivity : AppCompatActivity() {
 
     private var exitTime: Long = 0
@@ -23,14 +17,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val viewModel = ViewModelProviders.of(this, InjectorUtil.getMainModelFactory()).get(MainViewModel::class.java)
-        if (viewModel.isWeatherCached()) {
-            val intent = Intent(this, WeatherActivity::class.java)
-            startActivity(intent)
-            finish()
-        } else {
-            supportFragmentManager.beginTransaction().replace(R.id.container, ChooseAreaFragment()).commit()
-        }
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {

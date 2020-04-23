@@ -5,13 +5,10 @@ import android.app.Activity
 import android.app.Application
 import android.content.Context
 import android.os.Bundle
-import android.widget.Button
 import androidx.appcompat.app.AppCompatDelegate
+import com.alibaba.android.arouter.launcher.ARouter
 import com.coolweather.coolweatherjetpack.util.LogUtil
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper
-import com.qmuiteam.qmui.widget.QMUITopBarLayout
-import io.flutter.app.FlutterActivity
-import io.flutter.app.FlutterApplication
 import java.util.*
 
 
@@ -29,6 +26,16 @@ class CoolWeatherApplication : Application() {
 
         setNightMode()
 
+        initARouter()
+
+    }
+
+    private fun initARouter() {
+        if (BuildConfig.DEBUG) {
+            ARouter.openLog()
+            ARouter.openDebug()
+        }
+        ARouter.init(this)
     }
 
     private fun setNightMode() {

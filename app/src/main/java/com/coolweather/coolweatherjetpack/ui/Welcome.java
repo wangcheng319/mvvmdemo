@@ -65,7 +65,6 @@ public class Welcome extends Activity {
                 break;
             case TARGET_TWO:
                 Toast.makeText(this, "去页面：" + pageTarget + "\n" + "text： " + pageText, Toast.LENGTH_LONG).show();
-                startActivity(new Intent(Welcome.this, WebViewActivity.class));
                 break;
         }
 //        launchIntent.putExtra(TEXT_EXTRA, pageText);
