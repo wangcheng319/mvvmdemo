@@ -42,20 +42,20 @@ android {
 
     signingConfigs {
         release {
-            storeFile file('E:/mvvmdemo/ks/client_key.keystore')//keystore的路径
+            storeFile file('../ks/client_key.keystore')//keystore的路径
             storePassword 'chengmivico'
             keyAlias 'chengmidev'
             keyPassword 'chengmivico'
         }
         debug {
-            storeFile file('E:/mvvmdemo/ks/client_key.keystore')//keystore的路径
+            storeFile file('../ks/client_key.keystore')//keystore的路径
             storePassword 'chengmivico'
             keyAlias 'chengmidev'
             keyPassword 'chengmivico'
         }
 
         preview {
-            storeFile file('E:/mvvmdemo/ks/client_key.keystore')//keystore的路径
+            storeFile file('../ks/client_key.keystore')//keystore的路径
             storePassword 'chengmivico'
             keyAlias 'chengmidev'
             keyPassword 'chengmivico'
@@ -199,6 +199,5 @@ dependencies {
 
     implementation project(path: ':common')
     implementation project(path: ':module_main')
-//    implementation project(':flutter')
 
 }
