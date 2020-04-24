@@ -109,7 +109,7 @@ dependencies {
     implementation dep.progressmanager
     //qmui
     implementation dep.qmui
-    implementation project(':flutter')
+//    implementation project(':flutter')
 
     //camerax
     def camerax_version = '1.0.0-alpha06'

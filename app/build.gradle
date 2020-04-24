@@ -199,6 +199,6 @@ dependencies {
 
     implementation project(path: ':common')
     implementation project(path: ':module_main')
-    implementation project(':flutter')
+//    implementation project(':flutter')
 
 }

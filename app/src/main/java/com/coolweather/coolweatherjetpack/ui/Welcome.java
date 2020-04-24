@@ -12,8 +12,6 @@ import androidx.annotation.Nullable;
 
 import com.coolweather.coolweatherjetpack.R;
 
-import io.flutter.app.FlutterActivity;
-import io.flutter.app.FlutterFragmentActivity;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;

@@ -6,7 +6,6 @@ evaluate(new File(
 ))
 include ':module_main'
 
-//include ':flutter_module'
 
 
 include ':flutter_module'

@@ -54,7 +54,7 @@ class TestFragment1 : Fragment() {
     }
 
     private fun toFlutter() {
-        startActivity(io.flutter.embedding.android.FlutterActivity.createDefaultIntent(requireActivity()))
+//        startActivity(io.flutter.embedding.android.FlutterActivity.createDefaultIntent(requireActivity()))
 
     }
 
