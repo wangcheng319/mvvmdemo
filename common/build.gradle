@@ -1,0 +1,122 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+
+def app = rootProject.ext.android
+def config = rootProject.ext.app
+def dep = rootProject.ext.dep
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
+
+
+        //ARouter
+        kapt {
+            arguments {
+                arg("AROUTER_MODULE_NAME", project.getName())
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.core:core-ktx:1.2.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.1'
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0-alpha03"
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha3'
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.annotation:annotation:1.1.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    androidTestImplementation 'androidx.test:runner:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+
+    implementation 'org.litepal.android:kotlin:3.0.0'
+
+
+    //kotlin 相关
+    implementation dep.kotlin
+
+    //anko
+    implementation dep.anko_commons
+    implementation dep.anko_layout
+    implementation dep.anko_layout_appcompat
+    implementation dep.anko_layout_coroutine
+    implementation dep.anko_layout_app_coroutine
+
+    //rx
+    implementation dep.rxjava
+    implementation dep.rxandroid
+
+    implementation dep.rxbinding_core
+    implementation dep.rxbinding_appcompat
+
+    //event bus
+    implementation dep.event_bus
+
+    //viewmodel and lifecycle
+    implementation dep.livedata
+    implementation dep.viewmodel
+    implementation dep.lifecycle_extensions
+    implementation dep.fragment_ktx
+    implementation dep.rxLifecycle
+    implementation dep.rxLifecycle_components
+
+    //retrofit
+    implementation dep.retrofit
+    implementation dep.retrofit_json
+    implementation dep.retrofit_rxjava
+    implementation dep.okhttp_intercepte
+
+    //viewpager2
+    implementation dep.viewpager2
+
+    //glide
+    implementation dep.glide
+
+    //logger
+    implementation dep.orhanobut_logger
+
+    //autosize
+    implementation dep.autosize
+    implementation dep.progressmanager
+    //qmui
+    implementation dep.qmui
+    implementation project(':flutter')
+
+    //camerax
+    def camerax_version = '1.0.0-alpha06'
+    implementation "androidx.camera:camera-core:${camerax_version}"
+    implementation "androidx.camera:camera-camera2:${camerax_version}"
+
+    //arouter
+    api 'com.alibaba:arouter-api:1.5.0'
+    kapt 'com.alibaba:arouter-compiler:1.2.2'
+}

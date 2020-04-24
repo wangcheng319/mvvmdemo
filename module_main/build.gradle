@@ -1,13 +1,14 @@
 //apply plugin: 'com.android.application'
 
-if (isModule) {
-    apply plugin: 'com.android.application'
-} else {
+if (isModule.toBoolean()) {
     apply plugin: 'com.android.library'
+} else {
+    apply plugin: 'com.android.application'
 }
 
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 
 def app = rootProject.ext.android
@@ -18,7 +19,7 @@ android {
     compileSdkVersion app.compileSdkVersion
     defaultConfig {
         //如果是独立模块，则使用当前组件的包名
-        if (isModule.toBoolean()) {
+        if (!isModule.toBoolean()) {
             applicationId "com.dajiabao.modulemain"
         }
         minSdkVersion app.minSdkVersion
@@ -32,12 +33,14 @@ android {
                 arg("AROUTER_MODULE_NAME", project.getName())
             }
         }
+
+        resourcePrefix "main_"
     }
 
     //配置资源文件
     sourceSets {
         main {
-            if (isModule) {//如果moudle为组件则配置 AndroidManifest
+            if (isModule.toBoolean()) {//如果moudle为组件则配置 AndroidManifest
                 manifest.srcFile 'src/main/module/AndroidManifest.xml'
                 // 配置组件模式下的java代码主文件
                 java.srcDirs 'src/main/java', 'src/main/module/java'
@@ -59,7 +62,10 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
+
+    implementation project(path: ':common')
     //arouter
-    implementation 'com.alibaba:arouter-api:1.5.0'
+    api 'com.alibaba:arouter-api:1.5.0'
     kapt 'com.alibaba:arouter-compiler:1.2.2'
+
 }

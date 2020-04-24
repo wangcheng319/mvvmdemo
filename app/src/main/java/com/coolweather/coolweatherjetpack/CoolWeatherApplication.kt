@@ -8,16 +8,20 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
 import com.alibaba.android.arouter.launcher.ARouter
 import com.coolweather.coolweatherjetpack.util.LogUtil
+import com.dajiabao.common.AppConfig
+import com.dajiabao.common.BaseApp
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper
 import java.util.*
 
 
-class CoolWeatherApplication : Application() {
+class CoolWeatherApplication : BaseApp() {
 
     private var mActivityLinkedList: LinkedList<Activity>? = null
 
+
     override fun onCreate() {
         super.onCreate()
+
         context = this
         sApp = this
         mActivityLinkedList = LinkedList()
@@ -28,13 +32,51 @@ class CoolWeatherApplication : Application() {
 
         initARouter()
 
+        // 初始化组件 Application
+//        initModuleApp(this);
+
+        // 其他操作
+
+        // 所有 Application 初始化后的操作
+//        initModuleData(this);
+
+
+
+    }
+
+    override fun initModuleApp(application: Application?) {
+        for ( moduleApp:String in AppConfig.moduleApps) {
+            try {
+                var clazz = Class.forName(moduleApp)
+                var baseApp:BaseApp = clazz.newInstance() as BaseApp
+                baseApp.initModuleApp(this)
+            } catch (e:IllegalAccessException) {
+                e.printStackTrace()
+            } catch (e:InstantiationException) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    override fun initModuleData(application: Application?) {
+        for (moduleApp:String in AppConfig.moduleApps) {
+            try {
+                var clazz = Class.forName(moduleApp)
+                var baseApp:BaseApp = clazz.newInstance() as BaseApp
+                baseApp.initModuleData(this)
+            } catch (e:ClassNotFoundException) {
+                e.printStackTrace()
+            } catch (e:IllegalAccessException) {
+                e.printStackTrace()
+            } catch (e:InstantiationException) {
+                e.printStackTrace()
+            }
+        }
     }
 
     private fun initARouter() {
-        if (BuildConfig.DEBUG) {
-            ARouter.openLog()
-            ARouter.openDebug()
-        }
+        ARouter.openLog()
+        ARouter.openDebug()
         ARouter.init(this)
     }
 

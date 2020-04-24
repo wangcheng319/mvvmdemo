@@ -10,3 +10,4 @@ include ':module_main'
 
 
 include ':flutter_module'
+include ':common'
