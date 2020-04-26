@@ -1,3 +1,4 @@
 include ':app'
 include ':module_main'
 include ':common'
+include ':module_account'

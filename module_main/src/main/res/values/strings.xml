@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">ModuleMain</string>
+    <string name="main_app_name">ModuleMain</string>
+    <string name="main_resource_name_test">资源名字冲突测试_main</string>
 </resources>

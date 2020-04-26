@@ -1,0 +1,4 @@
+<resources>
+    <string name="account_app_name">module_account</string>
+    <string name="account_resource_name_test">资源名字冲突测试_account</string>
+</resources>
