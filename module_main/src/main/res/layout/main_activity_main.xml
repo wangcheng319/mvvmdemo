@@ -12,12 +12,19 @@
         android:background="@color/qmui_config_color_blue"
         android:fitsSystemWindows="true" />
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/main_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/account_resource_name_test"/>
+        <Button
+            android:id="@+id/main_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="跳转到account module"/>
+
+    </FrameLayout>
+
 
 
 

@@ -29,7 +29,7 @@ class FragmentContainerActivity : BaseActivity() {
     override fun initData() {
         supportFragmentManager
             .beginTransaction()
-            .add(R.id.root, TransformFragment.newInstance("",""))
+            .add(R.id.root, ARouterFragment.newInstance("",""))
             .commitNow()
     }
 

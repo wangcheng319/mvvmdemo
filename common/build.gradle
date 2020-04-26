@@ -108,7 +108,7 @@ dependencies {
     implementation dep.autosize
     implementation dep.progressmanager
     //qmui
-    implementation dep.qmui
+    api dep.qmui
 
     //camerax
     def camerax_version = '1.0.0-alpha06'
