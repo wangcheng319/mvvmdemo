@@ -1,6 +1,7 @@
 package com.coolweather.coolweatherjetpack.ui.fragment
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
 import android.content.pm.PackageManager
@@ -10,6 +11,7 @@ import android.graphics.Matrix
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
@@ -37,7 +39,7 @@ private const val REQUEST_CODE_PERMISSIONS = 10
 
 // This is an array of all the permission specified in the manifest.
 private val REQUIRED_PERMISSIONS =
-    arrayOf(Manifest.permission.CAMERA)
+    arrayOf(Manifest.permission.CAMERA,Manifest.permission.RECORD_AUDIO)
 
 class CameraXFragment : Fragment() {
 
@@ -45,6 +47,7 @@ class CameraXFragment : Fragment() {
     private var param2: String? = null
     private lateinit var viewFinder: TextureView
     private lateinit var btn: Button
+    private lateinit var video:Button
     private val executor = Executors.newSingleThreadExecutor()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,6 +66,7 @@ class CameraXFragment : Fragment() {
         var view = inflater.inflate(R.layout.fragment_camera_x, container, false)
         viewFinder = view.findViewById(R.id.textureView)
         btn = view.findViewById(R.id.btn_photo)
+        video = view.findViewById(R.id.btn_video)
         return view
     }
 
@@ -107,8 +111,10 @@ class CameraXFragment : Fragment() {
     }
 
 
+    @SuppressLint("RestrictedApi")
     private fun startCamera() {
         // Create configuration object for the viewfinder use case
+        //CameraX会自动确定要使用的最佳分辨率，无须setTargetResolution
         val previewConfig = PreviewConfig.Builder().apply { setTargetResolution(Size(viewFinder.width, viewFinder.height)) }.build()
 
 
@@ -152,6 +158,12 @@ class CameraXFragment : Fragment() {
          *
          */
         val imageCapture = ImageCapture(imageCaptureConfig)
+
+
+        val  videoCaptureConfig = VideoCaptureConfig.Builder().apply {  }.build()
+        val videoCapture = VideoCapture(videoCaptureConfig)
+
+
         btn.setOnClickListener {
             val file = File(
                 requireActivity().externalMediaDirs.first(),
@@ -188,11 +200,61 @@ class CameraXFragment : Fragment() {
                 })
         }
 
+        video.setOnClickListener {
+            val file = File(
+                requireActivity().externalMediaDirs.first(),
+                "${System.currentTimeMillis()}.mp4"
+            )
+
+            if(file.isDirectory && !file.exists()){
+                file.mkdir()
+            }
+
+            videoCapture.startRecording(file,executor,object :VideoCapture.OnVideoSavedListener{
+                override fun onVideoSaved(file: File) {
+                    val msg = "Video capture succeeded: ${file.absolutePath}"
+                    Log.d("CameraXApp", msg)
+//                        var bitmap = BitmapFactory.decodeFile(file.absolutePath)
+//                        saveSignImage(file.name,bitmap)
+                    viewFinder.post {
+                        Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+                override fun onError(
+                    videoCaptureError: VideoCapture.VideoCaptureError,
+                    message: String,
+                    cause: Throwable?
+                ) {
+                    val msg = "Video capture failed: $message"
+                    Log.e("CameraXApp", msg, cause)
+                    viewFinder.post {
+                        Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+            })
+
+            object :CountDownTimer(5*1000,1000){
+                override fun onFinish() {
+                    videoCapture.stopRecording()
+                }
+
+                override fun onTick(millisUntilFinished: Long) {
+
+                    Log.e("CameraXApp", "millisUntilFinished:$millisUntilFinished")
+                }
+
+            }.start()
+
+        }
+
+
         // Bind use cases to lifecycle
         // If Android Studio complains about "this" being not a LifecycleOwner
         // try rebuilding the project or updating the appcompat dependency to
         // version 1.1.0 or higher.
-        CameraX.bindToLifecycle(this, preview, imageCapture)
+        CameraX.bindToLifecycle(this, preview, videoCapture)
     }
 
 

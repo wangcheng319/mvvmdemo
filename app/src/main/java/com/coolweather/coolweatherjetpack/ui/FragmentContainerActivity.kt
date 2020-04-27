@@ -8,6 +8,7 @@ import android.widget.Toast
 import com.coolweather.coolweatherjetpack.R
 import com.coolweather.coolweatherjetpack.ui.base.BaseActivity
 import com.coolweather.coolweatherjetpack.ui.fragment.ARouterFragment
+import com.coolweather.coolweatherjetpack.ui.fragment.CameraXFragment
 import com.coolweather.coolweatherjetpack.ui.fragment.TransformFragment
 import com.coolweather.coolweatherjetpack.util.LogUtil
 import kotlinx.android.synthetic.main.activity_fragment_container.*
@@ -29,10 +30,9 @@ class FragmentContainerActivity : BaseActivity() {
     override fun initData() {
         supportFragmentManager
             .beginTransaction()
-            .add(R.id.root, ARouterFragment.newInstance("",""))
+            .add(R.id.root, CameraXFragment.newInstance("",""))
             .commitNow()
     }
-
 
 
     private fun initTopBar() {
