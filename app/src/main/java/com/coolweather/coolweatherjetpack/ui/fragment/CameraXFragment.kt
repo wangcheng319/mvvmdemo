@@ -48,7 +48,16 @@ class CameraXFragment : Fragment() {
     private lateinit var viewFinder: TextureView
     private lateinit var btn: Button
     private lateinit var video:Button
+    private lateinit var switch:Button
+
+    private lateinit var preview:Preview
+    private lateinit var previewConfig:PreviewConfig
+    private lateinit var imageCaptureConfig:ImageCaptureConfig
+    private lateinit var imageCapture:ImageCapture
+    private lateinit var videoCapture:VideoCapture
+
     private val executor = Executors.newSingleThreadExecutor()
+    private var lensFacing = CameraX.LensFacing.BACK
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,6 +76,7 @@ class CameraXFragment : Fragment() {
         viewFinder = view.findViewById(R.id.textureView)
         btn = view.findViewById(R.id.btn_photo)
         video = view.findViewById(R.id.btn_video)
+        switch = view.findViewById(R.id.btn_switch)
         return view
     }
 
@@ -115,11 +125,13 @@ class CameraXFragment : Fragment() {
     private fun startCamera() {
         // Create configuration object for the viewfinder use case
         //CameraX会自动确定要使用的最佳分辨率，无须setTargetResolution
-        val previewConfig = PreviewConfig.Builder().apply { setTargetResolution(Size(viewFinder.width, viewFinder.height)) }.build()
+        previewConfig = PreviewConfig.Builder().apply {
+            setTargetResolution(Size(viewFinder.width, viewFinder.height))
+        }.build()
 
 
         // Build the viewfinder use case
-        val preview = Preview(previewConfig)
+        preview = Preview(previewConfig)
 
         // Every time the viewfinder is updated, recompute layout
         preview.setOnPreviewOutputUpdateListener {
@@ -134,7 +146,7 @@ class CameraXFragment : Fragment() {
         }
 
 
-        val imageCaptureConfig = ImageCaptureConfig.Builder()
+        imageCaptureConfig = ImageCaptureConfig.Builder()
             .apply {
                 // We don't set a resolution for image capture; instead, we
                 // select a capture mode which will infer the appropriate
@@ -157,11 +169,11 @@ class CameraXFragment : Fragment() {
          *
          *
          */
-        val imageCapture = ImageCapture(imageCaptureConfig)
+        imageCapture = ImageCapture(imageCaptureConfig)
 
 
         val  videoCaptureConfig = VideoCaptureConfig.Builder().apply {  }.build()
-        val videoCapture = VideoCapture(videoCaptureConfig)
+        videoCapture = VideoCapture(videoCaptureConfig)
 
 
         btn.setOnClickListener {
@@ -249,11 +261,26 @@ class CameraXFragment : Fragment() {
             }.start()
         }
 
+        switch.setOnClickListener {
+            lensFacing = if (CameraX.LensFacing.FRONT == lensFacing) {
+                CameraX.LensFacing.BACK
+            } else {
+                CameraX.LensFacing.FRONT
+            }
+            CameraX.getCameraWithLensFacing(lensFacing)
+            bindCameraUseCases()
+        }
+
 
         // Bind use cases to lifecycle
         // If Android Studio complains about "this" being not a LifecycleOwner
         // try rebuilding the project or updating the appcompat dependency to
         // version 1.1.0 or higher.
+        CameraX.bindToLifecycle(this, preview,imageCapture, videoCapture)
+    }
+
+    private fun bindCameraUseCases() {
+        CameraX.unbindAll()
         CameraX.bindToLifecycle(this, preview,imageCapture, videoCapture)
     }
 
@@ -315,6 +342,11 @@ class CameraXFragment : Fragment() {
                 requireActivity().finish()
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        CameraX.unbindAll()
     }
 
     companion object {
