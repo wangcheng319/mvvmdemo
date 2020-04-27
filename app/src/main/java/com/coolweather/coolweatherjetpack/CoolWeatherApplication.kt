@@ -6,17 +6,22 @@ import android.app.Application
 import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.multidex.MultiDex
 import com.alibaba.android.arouter.launcher.ARouter
 import com.coolweather.coolweatherjetpack.util.LogUtil
 import com.dajiabao.common.AppConfig
 import com.dajiabao.common.BaseApp
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper
+import com.tencent.bugly.Bugly
+import com.tencent.bugly.beta.Beta
+import com.tencent.tinker.entry.ApplicationLike
 import java.util.*
 
 
 class CoolWeatherApplication : BaseApp() {
 
     private var mActivityLinkedList: LinkedList<Activity>? = null
+    private var tinkerApplicationLike: ApplicationLike? = null
 
 
     override fun onCreate() {
@@ -40,8 +45,21 @@ class CoolWeatherApplication : BaseApp() {
         // 所有 Application 初始化后的操作
 //        initModuleData(this);
 
+        initTinker()
+
+    }
+
+    private fun initTinker() {
+        Bugly.init(this, "f1ed221ce9", false);
+    }
+
+    override fun attachBaseContext(base: Context?) {
+        super.attachBaseContext(base)
+        MultiDex.install(base)
 
 
+        // 安装tinker
+        Beta.installTinker()
     }
 
     override fun initModuleApp(application: Application?) {
@@ -115,7 +133,7 @@ class CoolWeatherApplication : BaseApp() {
 
             override fun onActivityDestroyed(activity: Activity) {
                 if (null!=mActivityLinkedList && mActivityLinkedList?.contains(activity)!!) {
-                    mActivityLinkedList?.remove(activity);
+                    mActivityLinkedList?.remove(activity)
                 }
             }
 
