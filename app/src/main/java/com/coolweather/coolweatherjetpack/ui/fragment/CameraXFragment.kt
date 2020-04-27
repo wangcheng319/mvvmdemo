@@ -238,15 +238,15 @@ class CameraXFragment : Fragment() {
             object :CountDownTimer(5*1000,1000){
                 override fun onFinish() {
                     videoCapture.stopRecording()
+                    video.text = "录像"
                 }
 
                 override fun onTick(millisUntilFinished: Long) {
-
+                    video.text = millisUntilFinished.div(1000).toString()
                     Log.e("CameraXApp", "millisUntilFinished:$millisUntilFinished")
                 }
 
             }.start()
-
         }
 
 
@@ -254,7 +254,7 @@ class CameraXFragment : Fragment() {
         // If Android Studio complains about "this" being not a LifecycleOwner
         // try rebuilding the project or updating the appcompat dependency to
         // version 1.1.0 or higher.
-        CameraX.bindToLifecycle(this, preview, videoCapture)
+        CameraX.bindToLifecycle(this, preview,imageCapture, videoCapture)
     }
 
 
