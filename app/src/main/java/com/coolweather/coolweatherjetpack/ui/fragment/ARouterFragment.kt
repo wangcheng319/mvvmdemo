@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.alibaba.android.arouter.launcher.ARouter
 import com.coolweather.coolweatherjetpack.R
-import com.dajiabao.common.commonUtils
 import kotlinx.android.synthetic.main.fragment_a_router.*
 
 

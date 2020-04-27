@@ -7,6 +7,14 @@ import android.app.Application;
  * @CreateDate: 2020/4/24 14:09
  */
 public abstract class BaseApp extends Application {
+    private static BaseApp mApplication;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        mApplication = this;
+    }
+
     /**
      * Application 初始化
      */
@@ -16,5 +24,9 @@ public abstract class BaseApp extends Application {
      * 所有 Application 初始化后的自定义操作
      */
     public abstract void initModuleData(Application application);
+
+    public static BaseApp getInstance(){
+        return mApplication;
+    }
 
 }
