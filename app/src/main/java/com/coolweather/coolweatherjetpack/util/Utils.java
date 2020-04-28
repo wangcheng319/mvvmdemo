@@ -81,7 +81,7 @@ public class Utils {
                 editor.putBoolean(SIMCARD_1, true);
                 editor.putBoolean(SIMCARD_2, true);
 
-                LogUtil.i("双卡可用");
+                LogUtils.i("双卡可用");
 
             } else if (!result_0.toString().equals("5") && result_1.toString().equals("5"))
             {// 卡二可用
@@ -92,7 +92,7 @@ public class Utils {
                 editor.putBoolean(SIMCARD_1, false);
                 editor.putBoolean(SIMCARD_2, true);
 
-                LogUtil.i("卡二可用");
+                LogUtils.i("卡二可用");
 
             } else if (result_0.toString().equals("5") && !result_1.toString().equals("5"))
             {// 卡一可用
@@ -103,13 +103,13 @@ public class Utils {
                 editor.putBoolean(SIMCARD_1, true);
                 editor.putBoolean(SIMCARD_2, false);
 
-                LogUtil.i("卡一可用");
+                LogUtils.i("卡一可用");
 
             } else
             {// 两个卡都不可用(飞行模式会出现这种种情况)
                 editor.putBoolean(SIMCARD_1, false);
                 editor.putBoolean(SIMCARD_2, false);
-                LogUtil.i("飞行模式");
+                LogUtils.i("飞行模式");
             }
         } else
         {
@@ -128,7 +128,7 @@ public class Utils {
             telephonyClass = Class.forName(telephony.getClass().getName());
             Method[] methods = telephonyClass.getMethods();
             for (int i = 0; i < methods.length; i++) {
-                LogUtil.i("\n" + methods[i] + " declared by " + methods[i].getDeclaringClass());
+                LogUtils.i("\n" + methods[i] + " declared by " + methods[i].getDeclaringClass());
             }
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -151,7 +151,7 @@ public class Utils {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        LogUtil.i( " getSubscriberId : " + telephony.getSubscriberId() + "\n"
+        LogUtils.i( " getSubscriberId : " + telephony.getSubscriberId() + "\n"
                 + " result : " + result + "\n"
                 + " result0 : " + result0 + "\n"
                 + " result1 : " + result1 + "\n");

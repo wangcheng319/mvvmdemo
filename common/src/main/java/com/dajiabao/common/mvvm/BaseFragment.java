@@ -150,9 +150,9 @@ public abstract class BaseFragment extends Fragment implements IBaseView {
         }
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public <T> void onEvent(BaseFragmentEvent<T> event) {
-    }
+//    @Subscribe(threadMode = ThreadMode.MAIN)
+//    public <T> void onEvent(BaseFragmentEvent<T> event) {
+//    }
 
     public abstract int onBindLayout();
 

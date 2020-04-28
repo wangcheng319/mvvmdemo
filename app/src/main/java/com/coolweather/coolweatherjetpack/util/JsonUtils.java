@@ -2,9 +2,9 @@ package com.coolweather.coolweatherjetpack.util;
 
 /**
  * @Author: wangc
- * @CreateDate: 2020/4/13 16:48
+ * @CreateDate: 2020/4/28 15:57
  */
-public class JsonUtil {
+public class JsonUtils {
     /**
      * 格式化json字符串
      *

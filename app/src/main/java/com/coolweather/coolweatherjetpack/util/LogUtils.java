@@ -14,9 +14,9 @@ import com.orhanobut.logger.PrettyFormatStrategy;
 
 /**
  * @Author: wangc
- * @CreateDate: 2020/4/13 16:44
+ * @CreateDate: 2020/4/28 15:57
  */
-public class LogUtil {
+public class LogUtils {
     /**
      * 初始化log工具，在app入口处调用
      *

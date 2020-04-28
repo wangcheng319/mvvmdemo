@@ -9,18 +9,8 @@ abstract class BaseActivity:AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(contentViewId)
         QMUIStatusBarHelper.translucent(this)
-        initView()
-        initData()
     }
-
-    protected abstract val contentViewId: Int
-
-    protected abstract fun initView()
-
-    protected abstract fun initData()
-
 
     override fun onPause() {
         if (mLoadingDialog != null && mLoadingDialog!!.isShowing()) {

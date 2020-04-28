@@ -1,13 +1,15 @@
 package com.coolweather.coolweatherjetpack.ui.login
 
-import android.util.Log
-import androidx.lifecycle.LiveData
+import android.text.TextUtils
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.coolweather.coolweatherjetpack.data.Resource
+import androidx.lifecycle.ViewModelProviders
+import com.coolweather.coolweatherjetpack.ApplicationViewModel
+import com.coolweather.coolweatherjetpack.CoolWeatherApplication
 import com.coolweather.coolweatherjetpack.data.model.account.LoginRsp
-import com.coolweather.coolweatherjetpack.data.network.BaseRequestListener
-import com.coolweather.coolweatherjetpack.util.LogUtil
+import com.coolweather.coolweatherjetpack.data.network.BaseObserver
+import com.coolweather.coolweatherjetpack.data.network.BaseResponse
+import com.coolweather.coolweatherjetpack.util.ToastUtils
 import me.jessyan.progressmanager.ProgressListener
 import me.jessyan.progressmanager.ProgressManager
 import me.jessyan.progressmanager.body.ProgressInfo
@@ -25,11 +27,32 @@ import java.lang.Exception
  */
 class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
 
-    var result = MutableLiveData<String>()
+    var result = MutableLiveData<LoginRsp>()
+    var showLoading = MutableLiveData<Boolean>(false)
+    var userName = MutableLiveData<String>()
+    var passWord = MutableLiveData<String>()
 
-    fun login(username: String, password: String): LiveData<Resource<LoginRsp>> {
+    init {
+    }
 
-        return loginRepository.login(username,password)
+
+    fun login() {
+        if (TextUtils.isEmpty(userName.value) || TextUtils.isEmpty(passWord.value)){
+            ToastUtils.showToast("用户名或密码不能为空")
+            return
+        }
+        showLoading.value = true
+        loginRepository.login(userName.value!!, passWord.value!!,object : BaseObserver<BaseResponse<LoginRsp>>() {
+            override fun onSuccess(response: BaseResponse<LoginRsp>) {
+                showLoading.value = false
+                result.value = response.data
+            }
+
+            override fun onFailing(response: String?) {
+                super.onFailing(response)
+                showLoading.value = false
+            }
+        })
     }
 
     /**
@@ -38,7 +61,6 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
     fun getProgress(url:String){
         ProgressManager.getInstance().addResponseListener(url,object :ProgressListener{
             override fun onProgress(progressInfo: ProgressInfo?) {
-                LogUtil.d(progressInfo?.percent.toString())
             }
 
             override fun onError(id: Long, e: Exception?) {

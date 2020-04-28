@@ -10,7 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.coolweather.coolweatherjetpack.R
-import com.coolweather.coolweatherjetpack.util.LogUtil
+import com.coolweather.coolweatherjetpack.util.LogUtils
 import kotlinx.android.synthetic.main.fragment_contact.*
 
 
@@ -83,7 +83,7 @@ class ContactFragment : Fragment() {
             }
         }
 
-        LogUtil.i(contact[0]+contact[1])
+        LogUtils.i(contact[0]+contact[1])
 
     }
 

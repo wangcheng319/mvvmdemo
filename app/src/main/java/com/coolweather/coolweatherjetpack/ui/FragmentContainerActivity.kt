@@ -2,32 +2,40 @@ package com.coolweather.coolweatherjetpack.ui
 
 import android.app.ActivityOptions
 import android.content.Intent
+import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import android.widget.Button
 import android.widget.Toast
+import com.coolweather.coolweatherjetpack.ApplicationViewModel
+import com.coolweather.coolweatherjetpack.CoolWeatherApplication
 import com.coolweather.coolweatherjetpack.R
 import com.coolweather.coolweatherjetpack.ui.base.BaseActivity
 import com.coolweather.coolweatherjetpack.ui.fragment.ARouterFragment
 import com.coolweather.coolweatherjetpack.ui.fragment.CameraXFragment
 import com.coolweather.coolweatherjetpack.ui.fragment.TransformFragment
-import com.coolweather.coolweatherjetpack.util.LogUtil
 import kotlinx.android.synthetic.main.activity_fragment_container.*
 import kotlin.system.exitProcess
 
 
 class FragmentContainerActivity : BaseActivity() {
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_fragment_container)
+        initView()
+        initData()
+    }
+
     private var exitTime: Long = 0
 
-    override val contentViewId: Int
-        get() = R.layout.activity_fragment_container
 
-    override fun initView() {
+    private fun initView() {
         initTopBar()
 
     }
 
-    override fun initData() {
+    private fun initData() {
         supportFragmentManager
             .beginTransaction()
             .add(R.id.root, CameraXFragment.newInstance("",""))
@@ -41,13 +49,12 @@ class FragmentContainerActivity : BaseActivity() {
         topbar.setTitle("沉浸式状态栏示例").setTextColor(resources.getColor(R.color.qmui_config_color_white))
 
         var rightBtn:Button = topbar.addRightTextButton("更多",R.id.right)
-        rightBtn.setOnClickListener { LogUtil.d("点击更多") }
         rightBtn.setTextColor(resources.getColor(R.color.qmui_config_color_white))
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         if (keyCode == KeyEvent.KEYCODE_BACK){
-            exit()
+//            exit()
             return false
         }
         return super.onKeyDown(keyCode, event)

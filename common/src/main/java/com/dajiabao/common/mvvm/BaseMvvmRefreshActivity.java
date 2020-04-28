@@ -6,6 +6,7 @@ import androidx.databinding.ViewDataBinding;
 import androidx.lifecycle.Observer;
 
 import com.dajiabao.common.mvvm.viewmodel.BaseRefreshViewModel;
+import com.dajiabao.common.refresh.DaisyRefreshLayout;
 
 /**
  * Description: <下拉刷新、上拉加载更多的Activity><br>

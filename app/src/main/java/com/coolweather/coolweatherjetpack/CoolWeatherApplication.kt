@@ -8,9 +8,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.multidex.MultiDex
 import com.alibaba.android.arouter.launcher.ARouter
-import com.coolweather.coolweatherjetpack.util.LogUtil
-import com.dajiabao.common.AppConfig
-import com.dajiabao.common.BaseApp
+import com.coolweather.coolweatherjetpack.util.LogUtils
+import com.dajiabao.common.commonUtils
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper
 import com.tencent.bugly.Bugly
 import com.tencent.bugly.beta.Beta
@@ -18,7 +17,7 @@ import com.tencent.tinker.entry.ApplicationLike
 import java.util.*
 
 
-class CoolWeatherApplication : BaseApp() {
+class CoolWeatherApplication : Application() {
 
     private var mActivityLinkedList: LinkedList<Activity>? = null
     private var tinkerApplicationLike: ApplicationLike? = null
@@ -30,7 +29,6 @@ class CoolWeatherApplication : BaseApp() {
         context = this
         sApp = this
         mActivityLinkedList = LinkedList()
-        LogUtil.init()
         setActivityTitle()
 
         setNightMode()
@@ -46,6 +44,7 @@ class CoolWeatherApplication : BaseApp() {
 //        initModuleData(this);
 
         initTinker()
+        LogUtils.init()
 
     }
 
@@ -62,35 +61,6 @@ class CoolWeatherApplication : BaseApp() {
         Beta.installTinker()
     }
 
-    override fun initModuleApp(application: Application?) {
-        for ( moduleApp:String in AppConfig.moduleApps) {
-            try {
-                var clazz = Class.forName(moduleApp)
-                var baseApp:BaseApp = clazz.newInstance() as BaseApp
-                baseApp.initModuleApp(this)
-            } catch (e:IllegalAccessException) {
-                e.printStackTrace()
-            } catch (e:InstantiationException) {
-                e.printStackTrace()
-            }
-        }
-    }
-
-    override fun initModuleData(application: Application?) {
-        for (moduleApp:String in AppConfig.moduleApps) {
-            try {
-                var clazz = Class.forName(moduleApp)
-                var baseApp:BaseApp = clazz.newInstance() as BaseApp
-                baseApp.initModuleData(this)
-            } catch (e:ClassNotFoundException) {
-                e.printStackTrace()
-            } catch (e:IllegalAccessException) {
-                e.printStackTrace()
-            } catch (e:InstantiationException) {
-                e.printStackTrace()
-            }
-        }
-    }
 
     private fun initARouter() {
         ARouter.openLog()

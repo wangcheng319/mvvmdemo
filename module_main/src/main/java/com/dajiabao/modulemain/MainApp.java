@@ -4,7 +4,6 @@ import android.app.Application;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.dajiabao.common.BaseApp;
-import com.dajiabao.common.BuildConfig;
 
 /**
  * @Author: wangc
@@ -16,8 +15,6 @@ public class MainApp extends BaseApp {
     public void onCreate() {
         super.onCreate();
         initARouter();
-        initModuleApp(this);
-        initModuleData(this);
     }
 
     private void initARouter() {
@@ -28,13 +25,4 @@ public class MainApp extends BaseApp {
         ARouter.init(this);
     }
 
-    @Override
-    public void initModuleApp(Application application) {
-
-    }
-
-    @Override
-    public void initModuleData(Application application) {
-
-    }
 }

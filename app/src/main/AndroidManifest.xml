@@ -56,9 +56,9 @@
             android:name="design_height_in_dp"
             android:value="640" />
 
-        <activity android:name=".ui.ViewPager2DemoActivity" />
+        <activity android:name=".ui.FragmentContainerActivity" />
         <activity
-            android:name=".ui.FragmentContainerActivity"
+            android:name=".ui.login.LoginActivity"
             android:label="容器activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -67,18 +67,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.MainActivity" />
-        <activity android:name=".ui.Welcome">
-            <intent-filter android:autoVerify="true">
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data
-                    android:host="www.qw.com"
-                    android:scheme="http" />
-            </intent-filter>
-        </activity>
 
         <activity
             android:name="com.tencent.bugly.beta.ui.BetaActivity"

@@ -1,9 +1,9 @@
 package com.coolweather.coolweatherjetpack.data.network
 
+import com.coolweather.coolweatherjetpack.util.ToastUtils
 import io.reactivex.disposables.Disposable
 import com.google.gson.JsonParseException
 import org.json.JSONException
-import com.coolweather.coolweatherjetpack.util.toast.ToastUtils
 import io.reactivex.Observer
 import retrofit2.HttpException
 import java.io.InterruptedIOException
@@ -37,11 +37,11 @@ abstract class BaseObserver<T : BaseResponse<*>?> : Observer<T> {
 
     private fun onException(reason: ExceptionReason) {
         when (reason) {
-            ExceptionReason.CONNECT_ERROR -> ToastUtils.show(CONNECT_ERROR)
-            ExceptionReason.CONNECT_TIMEOUT -> ToastUtils.show(CONNECT_TIMEOUT)
-            ExceptionReason.BAD_NETWORK -> ToastUtils.show(BAD_NETWORK)
-            ExceptionReason.PARSE_ERROR -> ToastUtils.show(PARSE_ERROR)
-            ExceptionReason.UNKNOWN_ERROR -> ToastUtils.show(UNKNOWN_ERROR)
+            ExceptionReason.CONNECT_ERROR -> ToastUtils.showToast(CONNECT_ERROR)
+            ExceptionReason.CONNECT_TIMEOUT -> ToastUtils.showToast(CONNECT_TIMEOUT)
+            ExceptionReason.BAD_NETWORK -> ToastUtils.showToast(BAD_NETWORK)
+            ExceptionReason.PARSE_ERROR -> ToastUtils.showToast(PARSE_ERROR)
+            ExceptionReason.UNKNOWN_ERROR -> ToastUtils.showToast(UNKNOWN_ERROR)
         }
     }
 
@@ -60,9 +60,9 @@ abstract class BaseObserver<T : BaseResponse<*>?> : Observer<T> {
      */
     open fun onFailing(response: String?) {
         if (android.text.TextUtils.isEmpty(response)) {
-            ToastUtils.show(RESPONSE_RETURN_ERROR)
+            ToastUtils.showToast(RESPONSE_RETURN_ERROR)
         } else {
-            ToastUtils.show(response)
+            ToastUtils.showToast(response)
         }
     }
 

@@ -13,7 +13,7 @@ import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.coolweather.coolweatherjetpack.R
-import com.coolweather.coolweatherjetpack.util.LogUtil
+import com.coolweather.coolweatherjetpack.util.LogUtils
 import com.coolweather.coolweatherjetpack.util.UniqueIDUtils
 import kotlinx.android.synthetic.main.fragment_test1.*
 import org.jetbrains.anko.support.v4.toast
@@ -85,18 +85,18 @@ class TestFragment1 : Fragment() {
             return
         }else{
             val tm = requireActivity().getSystemService(TELEPHONY_SERVICE) as TelephonyManager
-            LogUtil.i("getPhoneNum1:"+tm.line1Number)
-            LogUtil.i("getPhoneNum2"+tm.groupIdLevel1)
+            LogUtils.i("getPhoneNum1:"+tm.line1Number)
+            LogUtils.i("getPhoneNum2"+tm.groupIdLevel1)
             toast("getPhoneNum1:"+tm.line1Number)
         }
     }
 
     private fun getMac() {
-        LogUtil.i("设备唯一码："+UniqueIDUtils.getUniqueID(requireActivity()))
+        LogUtils.i("设备唯一码："+UniqueIDUtils.getUniqueID(requireActivity()))
     }
 
     private fun getSerialNumber() {
-        LogUtil.i("getSerialNumber")
+        LogUtils.i("getSerialNumber")
     }
 
     private fun getAndroidId() {

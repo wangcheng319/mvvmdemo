@@ -1,6 +1,6 @@
 package com.coolweather.coolweatherjetpack.data.network;
 
-import com.coolweather.coolweatherjetpack.util.LogUtil;
+import com.coolweather.coolweatherjetpack.util.LogUtils;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -24,7 +24,7 @@ public class MyInterceptor implements Interceptor {
         Request original = chain.request();
         String url = original.url().toString();
         Response response = chain.proceed(original);
-        LogUtil.i(String.format("...\n请求链接：%s\n请求参数：%s\n请求响应%s", original.url(), getRequestInfo(original), getResponseInfo(response)));
+        LogUtils.i(String.format("...\n请求链接：%s\n请求参数：%s\n请求响应%s", original.url(), getRequestInfo(original), getResponseInfo(response)));
         return response;
     }
 

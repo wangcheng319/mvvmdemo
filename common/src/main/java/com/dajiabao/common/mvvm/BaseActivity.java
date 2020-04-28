@@ -1,6 +1,5 @@
 package com.dajiabao.common.mvvm;
 
-import android.app.ActivityManager;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -20,6 +19,7 @@ import androidx.appcompat.widget.Toolbar;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.dajiabao.common.R;
 import com.dajiabao.common.mvvm.view.IBaseView;
+import com.dajiabao.common.util.ActivityManager;
 import com.dajiabao.common.util.NetUtil;
 import com.dajiabao.common.view.LoadingInitView;
 import com.dajiabao.common.view.LoadingTransView;
@@ -27,8 +27,6 @@ import com.dajiabao.common.view.NetErrorView;
 import com.dajiabao.common.view.NoDataView;
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 /**
  * Description: <BaseActivity><br>
@@ -56,7 +54,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
         super.setContentView(R.layout.activity_root1);
         mContentView = (ViewGroup) findViewById(android.R.id.content);
         initCommonView();
@@ -209,9 +207,9 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
         mLoadingTransView.loading(show);
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public <T> void onEvent(BaseActivityEvent<T> event) {
-    }
+//    @Subscribe(threadMode = ThreadMode.MAIN)
+//    public <T> void onEvent(BaseActivityEvent<T> event) {
+//    }
 
     @Override
     public Context getContext() {

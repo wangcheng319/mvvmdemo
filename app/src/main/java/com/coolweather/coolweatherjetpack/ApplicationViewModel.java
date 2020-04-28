@@ -3,6 +3,7 @@ package com.coolweather.coolweatherjetpack;
 import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.MutableLiveData;
 
 /**
  * @ProjectName: mvvmdemo
@@ -15,9 +16,11 @@ import androidx.lifecycle.AndroidViewModel;
  */
 public class ApplicationViewModel extends AndroidViewModel {
     private String test;
+    private MutableLiveData<String> userName ;
+    public MutableLiveData<String>  passWord ;
     public ApplicationViewModel(@NonNull Application application) {
         super(application);
-
+        passWord = new MutableLiveData<>();
     }
-    
+
 }

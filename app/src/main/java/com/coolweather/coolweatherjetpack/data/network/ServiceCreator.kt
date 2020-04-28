@@ -1,6 +1,5 @@
 package com.coolweather.coolweatherjetpack.data.network
 
-import com.coolweather.coolweatherjetpack.BuildConfig
 import okhttp3.Call
 import okhttp3.EventListener
 import okhttp3.OkHttpClient
@@ -14,26 +13,12 @@ import java.util.concurrent.TimeUnit
 
 object ServiceCreator {
 
-//    private const val BASE_URL = "https://www.wanandroid.com/"
-    private const val BASE_URL = BuildConfig.BASE_URL
+    private const val BASE_URL = "https://www.wanandroid.com/"
+//    private const val BASE_URL = BuildConfig.BASE_URL
 
     private val httpClient = OkHttpClient.Builder()
         .addNetworkInterceptor(HttpLoggingInterceptor(HttpLogger()).setLevel(HttpLoggingInterceptor.Level.BODY))
-        .eventListener(object : EventListener(){
-            override fun callStart(call: Call) {
-                super.callStart(call)
-            }
-
-            override fun callEnd(call: Call) {
-                super.callEnd(call)
-            }
-
-            override fun callFailed(call: Call, ioe: IOException) {
-                super.callFailed(call, ioe)
-            }
-
-        })
-        .connectTimeout(5*1000,TimeUnit.MILLISECONDS)
+        .connectTimeout(30*1000,TimeUnit.MILLISECONDS)
         .followRedirects(true)
         .retryOnConnectionFailure(true)
 

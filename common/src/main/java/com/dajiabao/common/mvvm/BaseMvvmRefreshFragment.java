@@ -1,14 +1,14 @@
 package com.dajiabao.common.mvvm;
 
-import android.arch.lifecycle.Observer;
-import android.databinding.ViewDataBinding;
-import android.support.annotation.Nullable;
 import android.view.View;
 
-import com.fly.tour.common.adapter.BaseAdapter;
-import com.fly.tour.common.mvvm.viewmodel.BaseRefreshViewModel;
-import com.fly.tour.common.util.log.KLog;
-import com.refresh.lib.DaisyRefreshLayout;
+import androidx.annotation.Nullable;
+import androidx.databinding.ViewDataBinding;
+import androidx.lifecycle.Observer;
+
+import com.dajiabao.common.mvvm.adapter.BaseAdapter;
+import com.dajiabao.common.mvvm.viewmodel.BaseRefreshViewModel;
+import com.dajiabao.common.refresh.DaisyRefreshLayout;
 
 /**
  * Description: <下拉刷新、上拉加载更多的Fragment><br>
@@ -70,9 +70,7 @@ public abstract class BaseMvvmRefreshFragment<T, V extends ViewDataBinding, VM e
     }
 
     public void autoLoadData() {
-        KLog.v("MYTAG", "autoLoadData start...");
         if (mRefreshLayout != null) {
-            KLog.v("MYTAG", "autoLoadData1 start...");
             mRefreshLayout.autoRefresh();
         }
     }

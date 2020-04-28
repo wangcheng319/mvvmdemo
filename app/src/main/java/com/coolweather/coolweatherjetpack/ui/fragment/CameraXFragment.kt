@@ -25,7 +25,9 @@ import androidx.camera.core.*
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getExternalFilesDirs
-import com.coolweather.coolweatherjetpack.BuildConfig
+import androidx.lifecycle.ViewModelProviders
+import com.coolweather.coolweatherjetpack.ApplicationViewModel
+import com.coolweather.coolweatherjetpack.CoolWeatherApplication
 import com.coolweather.coolweatherjetpack.R
 import java.io.File
 import java.io.OutputStream
