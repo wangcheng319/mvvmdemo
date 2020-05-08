@@ -86,6 +86,12 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.13" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="8dp"
+            android:text="如果您希望使用其他帐号，可从下面的选项中选择。如果您代表某个公司或机构，建议您注册一个新的 Google"/>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

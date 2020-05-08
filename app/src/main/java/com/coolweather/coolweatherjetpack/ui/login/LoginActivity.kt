@@ -5,14 +5,15 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.WindowManager
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.coolweather.coolweatherjetpack.ApplicationViewModel
 import com.coolweather.coolweatherjetpack.R
 import com.coolweather.coolweatherjetpack.databinding.ActivityLoginBinding
 import com.coolweather.coolweatherjetpack.ui.FragmentContainerActivity
 import com.coolweather.coolweatherjetpack.ui.base.BaseActivity
+import org.jetbrains.anko.progressDialog
 
 class LoginActivity : BaseActivity() {
 
@@ -29,6 +30,9 @@ class LoginActivity : BaseActivity() {
         binding.viewModel = loginViewModel
 
         observeData()
+
+        //禁止屏幕截屏
+        window.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
     }
 
 

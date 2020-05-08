@@ -3,13 +3,17 @@ package com.coolweather.coolweatherjetpack.ui.base
 import android.app.ProgressDialog
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.dajiabao.common.util.ActivityManager
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper
+import org.greenrobot.eventbus.EventBus
 
 abstract class BaseActivity:AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         QMUIStatusBarHelper.translucent(this)
+        EventBus.getDefault().register(this)
+        ActivityManager.getInstance().addActivity(this)
     }
 
     override fun onPause() {
@@ -27,6 +31,8 @@ abstract class BaseActivity:AppCompatActivity() {
             mLoadingDialog = null
         }
         super.onDestroy()
+        EventBus.getDefault().unregister(this);
+        ActivityManager.getInstance().finishActivity(this);
     }
 
     private var mLoadingDialog: ProgressDialog? = null

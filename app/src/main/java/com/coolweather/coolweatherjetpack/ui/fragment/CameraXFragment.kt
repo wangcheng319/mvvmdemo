@@ -3,12 +3,9 @@ package com.coolweather.coolweatherjetpack.ui.fragment
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.ContentValues
-import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.Matrix
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -18,20 +15,21 @@ import android.util.Log
 import android.util.Size
 import android.view.*
 import android.widget.Button
-import android.widget.ImageButton
-import androidx.fragment.app.Fragment
 import android.widget.Toast
 import androidx.camera.core.*
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getExternalFilesDirs
-import androidx.lifecycle.ViewModelProviders
-import com.coolweather.coolweatherjetpack.ApplicationViewModel
-import com.coolweather.coolweatherjetpack.CoolWeatherApplication
+import androidx.fragment.app.Fragment
 import com.coolweather.coolweatherjetpack.R
+import com.google.gson.Gson
+import io.reactivex.Observable
+import io.reactivex.Observer
+import io.reactivex.disposables.Disposable
+import org.reactivestreams.Subscription
 import java.io.File
-import java.io.OutputStream
+import java.util.*
 import java.util.concurrent.Executors
+import java.util.concurrent.TimeUnit
 
 
 private const val ARG_PARAM1 = "param1"
@@ -57,6 +55,8 @@ class CameraXFragment : Fragment() {
     private lateinit var imageCaptureConfig:ImageCaptureConfig
     private lateinit var imageCapture:ImageCapture
     private lateinit var videoCapture:VideoCapture
+
+    private lateinit var subscribe: Subscription
 
     private val executor = Executors.newSingleThreadExecutor()
     private var lensFacing = CameraX.LensFacing.BACK
@@ -210,6 +210,8 @@ class CameraXFragment : Fragment() {
                         viewFinder.post {
                             Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
                         }
+
+                        startPoll()
                     }
                 })
         }
@@ -279,6 +281,28 @@ class CameraXFragment : Fragment() {
         // try rebuilding the project or updating the appcompat dependency to
         // version 1.1.0 or higher.
         CameraX.bindToLifecycle(this, preview,imageCapture, videoCapture)
+    }
+
+    private fun startPoll() {
+        Observable.interval(0, 5, TimeUnit.SECONDS)
+            .subscribe(object : Observer<Long?> {
+
+                override fun onError(e: Throwable) {
+
+                }
+
+                override fun onNext(t: Long) {
+
+                }
+
+                override fun onComplete() {
+
+                }
+
+                override fun onSubscribe(d: Disposable) {
+
+                }
+            })
     }
 
     private fun bindCameraUseCases() {
@@ -362,3 +386,4 @@ class CameraXFragment : Fragment() {
             }
     }
 }
+
