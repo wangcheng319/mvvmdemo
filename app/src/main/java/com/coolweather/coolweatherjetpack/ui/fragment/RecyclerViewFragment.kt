@@ -52,11 +52,14 @@ class RecyclerViewFragment : Fragment() {
 
         var header = Button(requireActivity())
         header.text = "header"
+        header.setOnClickListener { Log.e("+++","click header") }
         adapter.setHeaderView(header)
 
         var footer = Button(requireActivity())
         footer.text = "footer"
         adapter.setFooterView(footer)
+
+
 
         adapter.setOnItemClickListener { _, _, position -> Log.e("+++","click$position") }
 
