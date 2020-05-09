@@ -56,7 +56,6 @@ class CameraXFragment : Fragment() {
     private lateinit var imageCapture:ImageCapture
     private lateinit var videoCapture:VideoCapture
 
-    private lateinit var subscribe: Subscription
 
     private val executor = Executors.newSingleThreadExecutor()
     private var lensFacing = CameraX.LensFacing.BACK

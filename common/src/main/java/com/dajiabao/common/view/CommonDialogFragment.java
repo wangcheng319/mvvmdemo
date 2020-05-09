@@ -69,7 +69,7 @@ public class CommonDialogFragment extends DialogFragment {
     @Override
     public void onStart() {
         super.onStart();
-        getDialog().getWindow().setLayout(getResources().getDisplayMetrics().widthPixels - DisplayUtil.dip2px(40) * 2, ViewGroup.LayoutParams.WRAP_CONTENT);
+        getDialog().getWindow().setLayout(600, ViewGroup.LayoutParams.WRAP_CONTENT);
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
     }
 

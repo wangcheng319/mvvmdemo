@@ -33,6 +33,7 @@ abstract class BaseObserver<T : BaseResponse<*>?> : Observer<T> {
         } else { //其他错误
             onException(ExceptionReason.UNKNOWN_ERROR)
         }
+        onFailing("")
     }
 
     private fun onException(reason: ExceptionReason) {

@@ -12,7 +12,7 @@ abstract class BaseActivity:AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         QMUIStatusBarHelper.translucent(this)
-        EventBus.getDefault().register(this)
+//        EventBus.getDefault().register(this)
         ActivityManager.getInstance().addActivity(this)
     }
 
@@ -31,7 +31,7 @@ abstract class BaseActivity:AppCompatActivity() {
             mLoadingDialog = null
         }
         super.onDestroy()
-        EventBus.getDefault().unregister(this);
+//        EventBus.getDefault().unregister(this);
         ActivityManager.getInstance().finishActivity(this);
     }
 

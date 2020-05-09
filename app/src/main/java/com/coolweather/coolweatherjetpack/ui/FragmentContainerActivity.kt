@@ -11,9 +11,7 @@ import com.coolweather.coolweatherjetpack.ApplicationViewModel
 import com.coolweather.coolweatherjetpack.CoolWeatherApplication
 import com.coolweather.coolweatherjetpack.R
 import com.coolweather.coolweatherjetpack.ui.base.BaseActivity
-import com.coolweather.coolweatherjetpack.ui.fragment.ARouterFragment
-import com.coolweather.coolweatherjetpack.ui.fragment.CameraXFragment
-import com.coolweather.coolweatherjetpack.ui.fragment.TransformFragment
+import com.coolweather.coolweatherjetpack.ui.fragment.*
 import kotlinx.android.synthetic.main.activity_fragment_container.*
 import kotlin.system.exitProcess
 
@@ -38,7 +36,7 @@ class FragmentContainerActivity : BaseActivity() {
     private fun initData() {
         supportFragmentManager
             .beginTransaction()
-            .add(R.id.root, CameraXFragment.newInstance("",""))
+            .add(R.id.root, RecyclerViewFragment.newInstance("",""))
             .commitNow()
     }
 

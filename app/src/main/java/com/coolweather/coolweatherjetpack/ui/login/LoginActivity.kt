@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.view.WindowManager
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -13,6 +14,9 @@ import com.coolweather.coolweatherjetpack.R
 import com.coolweather.coolweatherjetpack.databinding.ActivityLoginBinding
 import com.coolweather.coolweatherjetpack.ui.FragmentContainerActivity
 import com.coolweather.coolweatherjetpack.ui.base.BaseActivity
+import com.dajiabao.common.view.CommonDialogFragment
+import com.dajiabao.common.view.RotateProgressDialog
+import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.progressDialog
 
 class LoginActivity : BaseActivity() {
@@ -46,8 +50,12 @@ class LoginActivity : BaseActivity() {
         loginViewModel.showLoading.observe(this, Observer {
             if (it){
                 showLoadingDialog()
+//                loading.loading(true)
+//                loading.visibility = View.VISIBLE
             }else{
                 hideLoadingDialog()
+//                loading.loading(false)
+//                loading.visibility = View.GONE
             }
         })
     }
