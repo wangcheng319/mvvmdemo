@@ -36,7 +36,7 @@ class FragmentContainerActivity : BaseActivity() {
     private fun initData() {
         supportFragmentManager
             .beginTransaction()
-            .add(R.id.root, RecyclerViewFragment.newInstance("",""))
+            .add(R.id.root, CameraXFragment.newInstance("",""))
             .commitNow()
     }
 

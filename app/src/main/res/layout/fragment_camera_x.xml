@@ -4,6 +4,14 @@
     android:layout_height="match_parent"
     tools:context="com.coolweather.coolweatherjetpack.ui.fragment.CameraXFragment">
 
+
+    <FrameLayout
+        android:id="@+id/fl"
+        android:layout_width="300dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center"
+        android:background="@drawable/camera_border"/>
+
     <TextureView
         android:id="@+id/textureView"
         android:layout_width="match_parent"

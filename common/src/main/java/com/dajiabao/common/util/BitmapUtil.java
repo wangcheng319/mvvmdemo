@@ -7,6 +7,10 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Build;
@@ -474,5 +478,44 @@ public class BitmapUtil {
         }
         // 在低版本中用一行的字节x高度
         return bitmap.getRowBytes() * bitmap.getHeight();                //earlier version
+    }
+
+    public static Bitmap getCircleBitmap(Bitmap bitmap) {//把图片裁剪成圆形
+        if (bitmap == null) {
+            return null;
+        }
+        bitmap = cropBitmap(bitmap);//裁剪成正方形
+        try {
+            Bitmap circleBitmap = Bitmap.createBitmap(bitmap.getWidth(),
+                    bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(circleBitmap);
+            final Paint paint = new Paint();
+            final Rect rect = new Rect(0, 0, bitmap.getWidth(),
+                    bitmap.getHeight());
+            final RectF rectF = new RectF(new Rect(0, 0, bitmap.getWidth(),
+                    bitmap.getHeight()));
+            float roundPx = 0.0f;
+            roundPx = bitmap.getWidth();
+            paint.setAntiAlias(true);
+            canvas.drawARGB(0, 0, 0, 0);
+            paint.setColor(Color.WHITE);
+            canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
+            paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+            final Rect src = new Rect(0, 0, bitmap.getWidth(),
+                    bitmap.getHeight());
+            canvas.drawBitmap(bitmap, src, rect, paint);
+            return circleBitmap;
+        } catch (Exception e) {
+            return bitmap;
+        }
+    }
+
+    public static Bitmap cropBitmap(Bitmap bitmap) {//从中间截取一个正方形
+        int w = bitmap.getWidth(); // 得到图片的宽，高
+        int h = bitmap.getHeight();
+        int cropWidth = w >= h ? h : w;// 裁切后所取的正方形区域边长
+
+        return Bitmap.createBitmap(bitmap, (bitmap.getWidth() - cropWidth) / 2,
+                (bitmap.getHeight() - cropWidth) / 2, cropWidth, cropWidth);
     }
 }

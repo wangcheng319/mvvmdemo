@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import android.os.Build
 import android.os.Bundle
@@ -21,13 +22,15 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.coolweather.coolweatherjetpack.R
-import com.google.gson.Gson
+import com.dajiabao.common.util.BitmapUtil
+import com.dajiabao.common.util.DisplayUtil
+import com.dajiabao.common.util.ScreenUtils
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
-import org.reactivestreams.Subscription
+import kotlinx.android.synthetic.main.fragment_camera_x.*
 import java.io.File
-import java.util.*
+import java.io.FileOutputStream
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 
@@ -209,8 +212,7 @@ class CameraXFragment : Fragment() {
                         viewFinder.post {
                             Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
                         }
-
-                        startPoll()
+                        cropBitmap(file)
                     }
                 })
         }
@@ -281,6 +283,30 @@ class CameraXFragment : Fragment() {
         // version 1.1.0 or higher.
         CameraX.bindToLifecycle(this, preview,imageCapture, videoCapture)
     }
+
+    /**
+     * 裁剪
+     */
+    private fun cropBitmap(file: File) {
+        var bitmap = BitmapFactory.decodeFile(file.absolutePath)
+
+
+        var bitmap1 = BitmapUtil.cropBitmap(BitmapUtil.rotateBitmapByDegree(bitmap,BitmapUtil.getBitmapDegree(file.absolutePath)))
+
+
+        val file = File(requireActivity().externalMediaDirs.first(), "crop.jpg")
+        var fileOutputStream = FileOutputStream(file)
+        bitmap1.compress(Bitmap.CompressFormat.JPEG, 100, fileOutputStream)
+        fileOutputStream.flush()
+        fileOutputStream.close()
+
+    }
+
+    fun dip2px(dipValue: Float): Int {
+        return (dipValue * requireContext().resources.displayMetrics.density + 0.5f).toInt()
+    }
+
+
 
     private fun startPoll() {
         Observable.interval(0, 5, TimeUnit.SECONDS)
