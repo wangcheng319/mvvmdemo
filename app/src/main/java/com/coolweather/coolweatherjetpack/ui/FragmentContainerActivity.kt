@@ -44,7 +44,7 @@ class FragmentContainerActivity : BaseActivity() {
     private fun initTopBar() {
         topbar.addLeftBackImageButton().setOnClickListener { finish() }
 
-        topbar.setTitle("沉浸式状态栏示例").setTextColor(resources.getColor(R.color.qmui_config_color_white))
+        topbar.setTitle("状态栏示例").setTextColor(resources.getColor(R.color.qmui_config_color_white))
 
         var rightBtn:Button = topbar.addRightTextButton("更多",R.id.right)
         rightBtn.setTextColor(resources.getColor(R.color.qmui_config_color_white))
