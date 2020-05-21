@@ -13,6 +13,7 @@ import com.dajiabao.common.commonUtils
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper
 import com.tencent.bugly.Bugly
 import com.tencent.bugly.beta.Beta
+import com.tencent.mmkv.MMKV
 import com.tencent.tinker.entry.ApplicationLike
 import java.util.*
 
@@ -45,6 +46,8 @@ class CoolWeatherApplication : Application() {
 
         initTinker()
         LogUtils.init()
+
+        MMKV.initialize(this);
 
     }
 
