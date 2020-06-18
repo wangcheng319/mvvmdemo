@@ -44,7 +44,15 @@ class MmkvTestFragment : Fragment() {
 
     private fun getData() {
         var item = MMKV.defaultMMKV().decodeParcelable("testDto",TestDto::class.java)
-        LogUtils.d(""+item.name)
+
+        try {
+            LogUtils.d(""+3/0)
+        }catch (e:Exception){
+            LogUtils.d(e.message)
+        }
+
+        imageView4.round = 30f
+
     }
 
     private fun saveData() {
