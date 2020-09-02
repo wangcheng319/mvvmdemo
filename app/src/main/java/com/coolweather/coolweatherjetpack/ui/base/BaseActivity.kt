@@ -1,69 +1,49 @@
 package com.coolweather.coolweatherjetpack.ui.base
 
-import android.app.ProgressDialog
 import android.os.Bundle
+import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
+import com.coolweather.coolweatherjetpack.util.ProgressDialogFragment
 import com.dajiabao.common.util.ActivityManager
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper
 import org.greenrobot.eventbus.EventBus
 
 abstract class BaseActivity:AppCompatActivity() {
 
+    private lateinit var progressDialogFragment: ProgressDialogFragment
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         QMUIStatusBarHelper.translucent(this)
-//        EventBus.getDefault().register(this)
+        EventBus.getDefault().register(this)
         ActivityManager.getInstance().addActivity(this)
     }
 
-    override fun onPause() {
-        if (mLoadingDialog != null && mLoadingDialog!!.isShowing()) {
-            mLoadingDialog!!.dismiss()
-            mLoadingDialog = null
-        }
-        super.onPause()
-    }
-
-
     override fun onDestroy() {
-        if (mLoadingDialog != null) {
-            mLoadingDialog!!.dismiss()
-            mLoadingDialog = null
-        }
         super.onDestroy()
-//        EventBus.getDefault().unregister(this);
+        EventBus.getDefault().unregister(this);
         ActivityManager.getInstance().finishActivity(this);
     }
 
-    private var mLoadingDialog: ProgressDialog? = null
 
-    fun showLoadingDialog() {
-        if (isDestroy()) {
-            return
+    /**
+     * 显示加载(转圈)对话框
+     */
+    fun showLoadingDialog(@StringRes message: Int) {
+        if (!this::progressDialogFragment.isInitialized) {
+            progressDialogFragment = ProgressDialogFragment.newInstance()
         }
-        runOnUiThread {
-            if (mLoadingDialog == null) {
-                mLoadingDialog = ProgressDialog(this@BaseActivity)
-            }
-
-            mLoadingDialog!!.setMessage("")
-            mLoadingDialog!!.show()
+        if (!progressDialogFragment.isAdded) {
+            progressDialogFragment.show(supportFragmentManager, message, false)
         }
     }
 
-    private fun isDestroy(): Boolean {
-        return this.isFinishing || this.isDestroyed
-    }
-
-
+    /**
+     * 隐藏加载(转圈)对话框
+     */
     fun hideLoadingDialog() {
-        if (isDestroy()) {
-            return
-        }
-        runOnUiThread {
-            if (mLoadingDialog != null) {
-                mLoadingDialog!!.dismiss()
-            }
+        if (this::progressDialogFragment.isInitialized && progressDialogFragment.isVisible) {
+            progressDialogFragment.dismissAllowingStateLoss()
         }
     }
 }

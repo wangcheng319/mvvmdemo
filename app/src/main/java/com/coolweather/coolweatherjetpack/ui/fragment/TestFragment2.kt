@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.coolweather.coolweatherjetpack.R
 import io.reactivex.Observable
 import io.reactivex.Observer
@@ -45,6 +47,9 @@ class TestFragment2 : Fragment() {
     }
 
     fun test(){
+        Glide.with(requireActivity()).load("").into(ImageView(requireActivity()))
+
+
         Observable.create<Any> { emitter -> emitter.onNext("") }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

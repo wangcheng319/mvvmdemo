@@ -36,7 +36,7 @@ ext {
             rxLifecycle_version        : "3.0.0",
             retrofit_version           : "2.6.1",
             okhttp_intercepte_version  : "3.5.0",
-            glide_version              : "3.7.0",
+            glide_version              : "4.11.0",
             viewpager2_version         : "1.0.0",
             logger_version             : "2.2.0",
             autosize_version           : "1.2.1",

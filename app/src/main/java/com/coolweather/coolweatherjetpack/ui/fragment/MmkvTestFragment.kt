@@ -46,12 +46,12 @@ class MmkvTestFragment : Fragment() {
         var item = MMKV.defaultMMKV().decodeParcelable("testDto",TestDto::class.java)
 
         try {
-            LogUtils.d(""+3/0)
+            LogUtils.d(item.name)
         }catch (e:Exception){
             LogUtils.d(e.message)
         }
 
-        imageView4.round = 30f
+        imageView4.round = 50f
 
     }
 

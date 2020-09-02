@@ -32,8 +32,7 @@ class LoginActivity : BaseActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
         binding.lifecycleOwner = this
         context = this
-//        loginViewModel = ViewModelProviders.of(this,LoginViewModelFactory(LoginRepository.getInstance())).get(LoginViewModel::class.java)
-        loginViewModel = ViewModelProvider(this)[LoginViewModel::class.java]
+        loginViewModel = ViewModelProviders.of(this,LoginViewModelFactory(LoginRepository.getInstance())).get(LoginViewModel::class.java)
         binding.viewModel = loginViewModel
 
         observeData()
@@ -52,7 +51,7 @@ class LoginActivity : BaseActivity() {
 
         loginViewModel.showLoading.observe(this, Observer {
             if (it){
-                showLoadingDialog()
+                showLoadingDialog(R.string.loading)
 //                loading.loading(true)
 //                loading.visibility = View.VISIBLE
             }else{
