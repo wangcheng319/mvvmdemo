@@ -11,13 +11,13 @@ import java.net.ConnectException
 import java.net.UnknownHostException
 import java.text.ParseException
 
-abstract class BaseObserver<T : BaseResponse<*>?> : Observer<T> {
+abstract class BaseObserver<T> : Observer<BaseResponse<T>> {
     override fun onSubscribe(d: Disposable) {}
-    override fun onNext(response: T) {
-        if (response!!.errorCode == -1) {
+    override fun onNext(response: BaseResponse<T>) {
+        if (response.errorCode == -1) {
             onFailing(response.errorMsg)
         } else {
-            onSuccess(response)
+            onSuccess(response.data)
         }
     }
 
@@ -52,7 +52,7 @@ abstract class BaseObserver<T : BaseResponse<*>?> : Observer<T> {
      *
      * @param response 返回值
      */
-    abstract fun onSuccess(response: T)
+    abstract fun onSuccess(response: T?)
 
     /**
      * 网络请求成功但是返回值是错误的

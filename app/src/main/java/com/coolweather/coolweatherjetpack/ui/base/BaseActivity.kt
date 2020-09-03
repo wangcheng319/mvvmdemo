@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.coolweather.coolweatherjetpack.util.ProgressDialogFragment
 import com.dajiabao.common.util.ActivityManager
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper
-import org.greenrobot.eventbus.EventBus
 
 abstract class BaseActivity:AppCompatActivity() {
 
@@ -15,13 +14,13 @@ abstract class BaseActivity:AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         QMUIStatusBarHelper.translucent(this)
-        EventBus.getDefault().register(this)
+//        EventBus.getDefault().register(this)
         ActivityManager.getInstance().addActivity(this)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        EventBus.getDefault().unregister(this);
+//        EventBus.getDefault().unregister(this);
         ActivityManager.getInstance().finishActivity(this);
     }
 

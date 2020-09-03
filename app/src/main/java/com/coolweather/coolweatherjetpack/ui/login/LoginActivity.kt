@@ -45,19 +45,22 @@ class LoginActivity : BaseActivity() {
     private fun observeData() {
 
         loginViewModel.result.observe(this, Observer {
-            Log.e("+++", "jieguo :$it")
-            startActivity(Intent(this,FragmentContainerActivity::class.java))
+//            startActivity(Intent(this,FragmentContainerActivity::class.java))
+            val sendIntent: Intent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, "This is my text to send.")
+                type = "text/plain"
+            }
+
+            val shareIntent = Intent.createChooser(sendIntent, null)
+            startActivity(shareIntent)
         })
 
         loginViewModel.showLoading.observe(this, Observer {
             if (it){
                 showLoadingDialog(R.string.loading)
-//                loading.loading(true)
-//                loading.visibility = View.VISIBLE
             }else{
                 hideLoadingDialog()
-//                loading.loading(false)
-//                loading.visibility = View.GONE
             }
         })
     }

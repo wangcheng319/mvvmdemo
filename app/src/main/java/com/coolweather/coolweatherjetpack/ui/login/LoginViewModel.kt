@@ -3,12 +3,8 @@ package com.coolweather.coolweatherjetpack.ui.login
 import android.text.TextUtils
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProviders
-import com.coolweather.coolweatherjetpack.ApplicationViewModel
-import com.coolweather.coolweatherjetpack.CoolWeatherApplication
 import com.coolweather.coolweatherjetpack.data.model.account.LoginRsp
 import com.coolweather.coolweatherjetpack.data.network.BaseObserver
-import com.coolweather.coolweatherjetpack.data.network.BaseResponse
 import com.coolweather.coolweatherjetpack.util.ToastUtils
 import me.jessyan.progressmanager.ProgressListener
 import me.jessyan.progressmanager.ProgressManager
@@ -42,15 +38,16 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
             return
         }
         showLoading.value = true
-        loginRepository.login(userName.value!!, passWord.value!!,object : BaseObserver<BaseResponse<LoginRsp>>() {
-            override fun onSuccess(response: BaseResponse<LoginRsp>) {
-                showLoading.value = false
-                result.value = response.data
-            }
+        loginRepository.login(userName.value!!, passWord.value!!,object : BaseObserver<LoginRsp>() {
 
             override fun onFailing(response: String?) {
                 super.onFailing(response)
                 showLoading.value = false
+            }
+
+            override fun onSuccess(response: LoginRsp?) {
+                showLoading.value = false
+                result.value = response
             }
         })
     }
